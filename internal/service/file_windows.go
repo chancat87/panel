@@ -1,5 +1,7 @@
 //go:build !linux
 
+// 这个文件只是为了在 Windows 下能编译通过，实际上并没有任何卵用
+
 package service
 
 import (
@@ -9,9 +11,9 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-rat/chix"
-	"github.com/golang-module/carbon/v2"
 
 	"github.com/TheTNB/panel/internal/http/request"
 	"github.com/TheTNB/panel/pkg/io"
@@ -34,8 +36,8 @@ func (s *FileService) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !req.Dir {
-		if out, err := shell.Execf("touch %s", req.Path); err != nil {
-			Error(w, http.StatusInternalServerError, out)
+		if _, err = shell.Execf("touch %s", req.Path); err != nil {
+			Error(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 	} else {
@@ -193,7 +195,6 @@ func (s *FileService) Download(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *FileService) RemoteDownload(w http.ResponseWriter, r *http.Request) {
-	// TODO: 未实现
 }
 
 func (s *FileService) Info(w http.ResponseWriter, r *http.Request) {
@@ -215,7 +216,7 @@ func (s *FileService) Info(w http.ResponseWriter, r *http.Request) {
 		"mode_str": info.Mode().String(),
 		"mode":     fmt.Sprintf("%04o", info.Mode().Perm()),
 		"dir":      info.IsDir(),
-		"modify":   carbon.CreateFromStdTime(info.ModTime()).ToDateTimeString(),
+		"modify":   info.ModTime().Format(time.DateTime),
 	})
 }
 
@@ -333,7 +334,7 @@ func (s *FileService) List(w http.ResponseWriter, r *http.Request) {
 			"symlink":  io.IsSymlink(info.Mode()),
 			"link":     io.GetSymlink(filepath.Join(req.Path, info.Name())),
 			"dir":      info.IsDir(),
-			"modify":   carbon.CreateFromStdTime(info.ModTime()).ToDateTimeString(),
+			"modify":   info.ModTime().Format(time.DateTime),
 		})
 	}
 

@@ -12,9 +12,9 @@ export interface Website {
 
 export interface WebsiteSetting {
   name: string
-  ports: string[]
-  ssl_ports: string[]
-  quic_ports: string[]
+  ports: number[]
+  ssl_ports: number[]
+  quic_ports: number[]
   domains: string[]
   root: string
   path: string
@@ -32,10 +32,6 @@ export interface WebsiteSetting {
   http_redirect: boolean
   hsts: boolean
   ocsp: boolean
-  waf: boolean
-  waf_mode: string
-  waf_cc_deny: string
-  waf_cache: string
   rewrite: string
   raw: string
   log: string

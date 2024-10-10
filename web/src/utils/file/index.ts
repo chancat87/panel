@@ -80,10 +80,6 @@ const getIconByExt = (ext: string) => {
 }
 
 const languageByPath = (path: string) => {
-  if (path.startsWith('/www/server/openresty/')) {
-    return 'nginx'
-  }
-
   const ext = getExt(path)
   switch (ext) {
     case 'abap':
@@ -148,6 +144,7 @@ const languageByPath = (path: string) => {
     case 'htm': // html 扩展名
       return 'html'
     case 'ini':
+    case 'conf':
       return 'ini'
     case 'java':
       return 'java'
@@ -272,7 +269,7 @@ const languageByPath = (path: string) => {
     case 'yml': // yaml 扩展名
       return 'yaml'
     default:
-      return ''
+      return 'plaintext'
   }
 }
 
@@ -318,15 +315,15 @@ const lastDirectory = (path: string) => {
 }
 
 export {
-  getExt,
-  getBase,
-  getIconByExt,
-  languageByPath,
   checkName,
   checkPath,
-  getFilename,
-  isArchive,
-  formatPercent,
   formatBytes,
+  formatPercent,
+  getBase,
+  getExt,
+  getFilename,
+  getIconByExt,
+  isArchive,
+  languageByPath,
   lastDirectory
 }

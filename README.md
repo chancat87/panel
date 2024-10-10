@@ -20,18 +20,14 @@
 
 交流QQ群：[12370907](https://jq.qq.com/?_wv=1027&k=I1oJKSTH) | 论坛：[tom.moe](https://tom.moe) | 赞助：[爱发电](https://afdian.com/a/TheTNB)
 
-## 项目现状
-
-**目前我在着手使用新的「自研」框架重构本项目，由于更改非常大需要一定时间，预期 9 月底会带来新的更新。**
-
 ## 优势
 
-1. **极低占用:** 在 Debian 12 下部署面板 + LNMP 环境，内存占用不到 500 MB，遥遥领先于使用容器化的其他面板。
+1. **极低占用:** 在 Debian 下部署面板 + LNMP 环境，内存占用不到 500 MB，遥遥领先于使用容器化的其他面板。
 2. **低破坏性:** 面板的设计理念是尽可能减少对系统的额外修改，在同类面板中，我们对系统的修改最少。
 3. **追随时代:** 面板所有组件均走在时代前沿，更新快，功能强大，安全性有保障。
-4. **高效运维:** 面板 UI 界面简洁，操作简单，无需繁琐的配置，即可快速部署各类环境、调整应用设置。
+4. **高效运维:** 面板界面简洁，操作简单，无需繁琐的配置，即可快速部署各类环境、调整应用设置。
 5. **离线运行:** 面板运行可不依赖任何外部服务，你甚至可以在部署完成后停止面板进程，不会对已部署服务造成任何影响。
-6. **久经考验:** 我们生产环境自 2022 年即开始使用，已稳定运行 1 年以上无事故。
+6. **久经考验:** 我们生产环境自 2022 年即开始使用，已稳定运行 2 年无事故。
 7. **开源开放:** 面板开源，你可以自由修改、审计面板源码，安全性有保障。
 
 ## UI 截图
@@ -40,30 +36,33 @@
 
 ## 运行环境
 
-耗子面板仅支持 `amd64` | `arm64` 架构下的主流系统的最新版本，不支持 `Ubuntu`，因为其发版太过频繁，难以维护。
+耗子面板支持 `amd64` | `arm64` 架构下的主流系统。
 
-低配机器建议使用 `Debian`，资源占用较 `RHEL` 系更低。其他机器建议使用 `AlmaLinux` | `RockyLinux`，维护周期更长也更稳定。
+优先建议使用 `AlmaLinux` | `RockyLinux`。
 
-不在下表中的其他 RHEL 9.x 系统，可自行尝试安装，但不保证能够正常运行，且不提供技术支持（理论上不会有大问题）。
+不在下表中的其他系统，可自行尝试安装，但不保证能够正常运行，且不提供技术支持。
 
 | 系统         | 版本 |
 |------------|----|
 | RHEL       | 9  |
 | AlmaLinux  | 9  |
 | RockyLinux | 9  |
+| Ubuntu     | 22 |
+| Ubuntu     | 24 |
+| Debian     | 11 |
 | Debian     | 12 |
 
-随着系统版本的不断更新，我们亦可能会终止部分过于老旧的系统的支持，以保证面板的稳定性。
+随着系统版本的不断更新，我们亦可能会终止部分过于老旧的系统的支持，以保证面板的健壮性。
 
 ## 安装面板
 
 > **Warning**
-> 安装面板前，你需要了解 LNMP 环境的基本知识，以及如何处理常见的 LNMP 环境问题，不建议 0 基础的用户安装和使用耗子面板。
+> 安装面板前，你需要了解 LNMP 环境的基本知识，以及如何处理常见的 LNMP 环境问题，我们不建议 0 基础的用户安装和使用耗子面板。
 
 如果你决定继续，请以`root`用户登录服务器，执行以下命令安装面板：
 
 ```shell
-HAOZI_DL_URL="https://dl.cdn.haozi.net/panel"; curl -sSL -O ${HAOZI_DL_URL}/install_panel.sh && curl -sSL -O ${HAOZI_DL_URL}/install_panel.sh.checksum.txt && sha256sum -c install_panel.sh.checksum.txt && bash install_panel.sh || echo "Checksum 验证失败，文件可能被篡改，已终止操作"
+版本升级，暂停安装！
 ```
 
 ## 卸载面板
@@ -73,20 +72,20 @@ HAOZI_DL_URL="https://dl.cdn.haozi.net/panel"; curl -sSL -O ${HAOZI_DL_URL}/inst
 如果你无法重装系统，请以`root`用户登录服务器，执行以下命令卸载面板：
 
 ```shell
-HAOZI_DL_URL="https://dl.cdn.haozi.net/panel"; curl -sSL -O ${HAOZI_DL_URL}/uninstall_panel.sh && curl -sSL -O ${HAOZI_DL_URL}/uninstall_panel.sh.checksum.txt && sha256sum -c uninstall_panel.sh.checksum.txt && bash uninstall_panel.sh || echo "Checksum 验证失败，文件可能被篡改，已终止操作"
+curl -fsLm 10 -o uninstall_panel.sh https://dl.cdn.haozi.net/panel/uninstall_panel.sh && bash uninstall_panel.sh
 ```
 
-卸载面板前请务必备份好所有数据，提前卸载面板全部插件。卸载后数据将**无法恢复**！
+卸载面板前请务必备份好所有数据，提前卸载面板全部应用。卸载后数据将**无法恢复**！
 
 ## 日常维护
 
-使用`panel`命令进行日常维护：
+使用`panel-cli`命令进行日常维护：
 
 ```shell
-panel
+panel-cli
 ```
 
-在 [Wiki](https://github.com/TheTNB/panel/wiki) 中查看更多使用方法和技巧。
+在 [文档](https://tom.moe/docs?category=57) 中查看更多使用方法和技巧。
 
 ## 问题反馈
 
@@ -100,13 +99,14 @@ panel
 
 **同时接受云资源赞助，可通过QQ群咨询联系**
 
-### 服务器
+### 资金
 
 - [微晓朵](https://www.weixiaoduo.com/)
 
 ### CDN
 
 - [无畏云加速](https://su.sctes.com/register?code=8st689ujpmm2p)
+- [WAF PRO](https://waf.pro/)
 - [盾云CDN](http://cdn.ddunyun.com/)
 
 <p align="center">

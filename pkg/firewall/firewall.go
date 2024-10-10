@@ -13,6 +13,13 @@ import (
 	"github.com/TheTNB/panel/pkg/systemctl"
 )
 
+type Operation string
+
+var (
+	OperationAdd Operation = "add"
+	OperationDel Operation = "remove"
+)
+
 type Firewall struct {
 	forwardListRegex *regexp.Regexp
 	richRuleRegex    *regexp.Regexp
@@ -125,15 +132,17 @@ func (r *Firewall) ListRichRule() ([]FireInfo, error) {
 	return data, nil
 }
 
-func (r *Firewall) Port(port FireInfo, operation string) error {
+func (r *Firewall) Port(port FireInfo, operation Operation) error {
 	stdout, err := shell.Execf("firewall-cmd --zone=public --%s-port=%d/%s --permanent", operation, port.Port, port.Protocol)
 	if err != nil {
 		return fmt.Errorf("%s port %d/%s failed, err: %s", operation, port.Port, port.Protocol, stdout)
 	}
-	return systemctl.Reload("firewalld")
+
+	_, err = shell.Execf("firewall-cmd --reload")
+	return err
 }
 
-func (r *Firewall) RichRules(rule FireInfo, operation string) error {
+func (r *Firewall) RichRules(rule FireInfo, operation Operation) error {
 	families := strings.Split(rule.Family, "/") // ipv4 ipv6
 
 	for _, family := range families {
@@ -150,16 +159,17 @@ func (r *Firewall) RichRules(rule FireInfo, operation string) error {
 		}
 
 		ruleStr.WriteString(rule.Strategy)
-		out, err := shell.Execf("firewall-cmd --zone=public --%s-rich-rule '%s' --permanent", operation, ruleStr.String())
+		_, err := shell.Execf("firewall-cmd --zone=public --%s-rich-rule '%s' --permanent", operation, ruleStr.String())
 		if err != nil {
-			return fmt.Errorf("%s rich rules (%s) failed, err: %s", operation, ruleStr.String(), out)
+			return fmt.Errorf("%s rich rules (%s) failed, err: %s", operation, ruleStr.String(), err.Error())
 		}
 	}
 
-	return systemctl.Reload("firewalld")
+	_, err := shell.Execf("firewall-cmd --reload")
+	return err
 }
 
-func (r *Firewall) PortForward(info Forward, operation string) error {
+func (r *Firewall) PortForward(info Forward, operation Operation) error {
 	if err := r.enableForward(); err != nil {
 		return err
 	}
@@ -173,12 +183,13 @@ func (r *Firewall) PortForward(info Forward, operation string) error {
 	}
 	ruleStr.WriteString(" --permanent")
 
-	out, err := shell.Execf(ruleStr.String()) // nolint: govet
+	_, err := shell.Execf(ruleStr.String()) // nolint: govet
 	if err != nil {
-		return fmt.Errorf("%s port forward failed, err: %s", operation, out)
+		return fmt.Errorf("%s port forward failed, err: %s", operation, err.Error())
 	}
 
-	return systemctl.Reload("firewalld")
+	_, err = shell.Execf("firewall-cmd --reload")
+	return err
 }
 
 func (r *Firewall) parseRichRule(line string) (*FireInfo, error) {
@@ -208,10 +219,11 @@ func (r *Firewall) enableForward() error {
 				return fmt.Errorf("%s: %s", err, out)
 			}
 
-			return systemctl.Reload("firewalld")
+			_, err = shell.Execf("firewall-cmd --reload")
+			return err
 		}
 
-		return fmt.Errorf("%s: %s", err, out)
+		return fmt.Errorf("%v: %s", err, out)
 	}
 
 	return nil

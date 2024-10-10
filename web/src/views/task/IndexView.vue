@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { Task } from '@/views/task/types'
-import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
-import { renderIcon } from '@/utils'
-import task from '@/api/panel/task'
 import Editor from '@guolao/vue-monaco-editor'
+import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+
+import task from '@/api/panel/task'
+import { formatDateTime, renderIcon } from '@/utils'
+import type { Task } from '@/views/task/types'
 
 const { t } = useI18n()
 const taskLogModal = ref(false)
@@ -39,14 +40,20 @@ const columns: any = [
   {
     title: t('taskIndex.columns.createdAt'),
     key: 'created_at',
-    width: 160,
-    ellipsis: { tooltip: true }
+    width: 200,
+    ellipsis: { tooltip: true },
+    render(row: any): string {
+      return formatDateTime(row.created_at)
+    }
   },
   {
     title: t('taskIndex.columns.updatedAt'),
     key: 'updated_at',
-    width: 160,
-    ellipsis: { tooltip: true }
+    width: 200,
+    ellipsis: { tooltip: true },
+    render(row: any): string {
+      return formatDateTime(row.updated_at)
+    }
   },
   {
     title: t('taskIndex.columns.actions'),
@@ -135,9 +142,9 @@ const handleDelete = (id: number) => {
 
 const handleShowLog = (id: number) => {
   task
-    .log(id)
+    .get(id)
     .then((res) => {
-      taskLog.value = res.data
+      taskLog.value = res.data.log
     })
     .catch(() => {
       autoRefresh.value = false
@@ -197,7 +204,7 @@ onUnmounted(() => {
 <template>
   <common-page show-footer>
     <n-flex vertical>
-      <n-alert type="info">若日志无法加载，请关闭广告拦截插件！</n-alert>
+      <n-alert type="info">若日志无法加载，请关闭广告拦截应用！</n-alert>
       <n-data-table
         striped
         remote

@@ -8,10 +8,11 @@ import (
 
 	"github.com/go-rat/chix"
 	"github.com/hashicorp/go-version"
+	"github.com/spf13/cast"
 
+	"github.com/TheTNB/panel/internal/app"
 	"github.com/TheTNB/panel/internal/biz"
 	"github.com/TheTNB/panel/internal/data"
-	"github.com/TheTNB/panel/internal/panel"
 	"github.com/TheTNB/panel/pkg/db"
 	"github.com/TheTNB/panel/pkg/shell"
 	"github.com/TheTNB/panel/pkg/tools"
@@ -36,14 +37,6 @@ func NewInfoService() *InfoService {
 	}
 }
 
-// Panel
-//
-//	@Summary	面板信息
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/panel [get]
 func (s *InfoService) Panel(w http.ResponseWriter, r *http.Request) {
 	name, _ := s.settingRepo.Get(biz.SettingKeyName)
 	if name == "" {
@@ -52,66 +45,34 @@ func (s *InfoService) Panel(w http.ResponseWriter, r *http.Request) {
 
 	Success(w, chix.M{
 		"name":     name,
-		"language": panel.Conf.MustString("app.locale"),
+		"language": app.Conf.MustString("app.locale"),
 	})
 }
 
-// HomePlugins
-//
-//	@Summary	首页插件
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/homePlugins [get]
-func (s *InfoService) HomePlugins(w http.ResponseWriter, r *http.Request) {
+func (s *InfoService) HomeApps(w http.ResponseWriter, r *http.Request) {
 	apps, err := s.appRepo.GetHomeShow()
 	if err != nil {
-		Error(w, http.StatusInternalServerError, "获取首页插件失败")
+		Error(w, http.StatusInternalServerError, "获取首页应用失败")
 		return
 	}
 
 	Success(w, apps)
 }
 
-// NowMonitor
-//
-//	@Summary	实时监控
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/nowMonitor [get]
-func (s *InfoService) NowMonitor(w http.ResponseWriter, r *http.Request) {
+func (s *InfoService) Realtime(w http.ResponseWriter, r *http.Request) {
 	Success(w, tools.GetMonitoringInfo())
 }
 
-// SystemInfo
-//
-//	@Summary	系统信息
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/systemInfo [get]
 func (s *InfoService) SystemInfo(w http.ResponseWriter, r *http.Request) {
 	monitorInfo := tools.GetMonitoringInfo()
 
 	Success(w, chix.M{
 		"os_name":       monitorInfo.Host.Platform + " " + monitorInfo.Host.PlatformVersion,
 		"uptime":        fmt.Sprintf("%.2f", float64(monitorInfo.Host.Uptime)/86400),
-		"panel_version": panel.Conf.MustString("app.version"),
+		"panel_version": app.Conf.MustString("app.version"),
 	})
 }
 
-// CountInfo
-//
-//	@Summary	统计信息
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/countInfo [get]
 func (s *InfoService) CountInfo(w http.ResponseWriter, r *http.Request) {
 	websiteCount, err := s.websiteRepo.Count()
 	if err != nil {
@@ -127,7 +88,7 @@ func (s *InfoService) CountInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	var databaseCount int64
 	if mysqlInstalled {
-		rootPassword, _ := s.settingRepo.Get(biz.SettingKeyMysqlRootPassword)
+		rootPassword, _ := s.settingRepo.Get(biz.SettingKeyMySQLRootPassword)
 		mysql, err := db.NewMySQL("root", rootPassword, "/tmp/mysql.sock")
 		if err == nil {
 			defer mysql.Close()
@@ -157,7 +118,7 @@ func (s *InfoService) CountInfo(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if postgresqlInstalled {
-		postgres, err := db.NewPostgres("postgres", "", "127.0.0.1", 5432)
+		postgres, err := db.NewPostgres("postgres", "", "127.0.0.1", fmt.Sprintf("%s/server/postgresql/data/pg_hba.conf", app.Root), 5432)
 		if err == nil {
 			defer postgres.Close()
 			if err = postgres.Ping(); err != nil {
@@ -208,22 +169,14 @@ func (s *InfoService) CountInfo(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// InstalledDbAndPhp
-//
-//	@Summary	已安装的数据库和PHP
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/installedDbAndPhp [get]
 func (s *InfoService) InstalledDbAndPhp(w http.ResponseWriter, r *http.Request) {
 	mysqlInstalled, _ := s.appRepo.IsInstalled("slug like ?", "mysql%")
 	postgresqlInstalled, _ := s.appRepo.IsInstalled("slug like ?", "postgresql%")
 	php, _ := s.appRepo.GetInstalledAll("slug like ?", "php%")
 
-	var phpData []types.LV
+	var phpData []types.LVInt
 	var dbData []types.LV
-	phpData = append(phpData, types.LV{Value: "0", Label: "不使用"})
+	phpData = append(phpData, types.LVInt{Value: 0, Label: "不使用"})
 	dbData = append(dbData, types.LV{Value: "0", Label: "不使用"})
 	for _, p := range php {
 		// 过滤 phpmyadmin
@@ -232,8 +185,8 @@ func (s *InfoService) InstalledDbAndPhp(w http.ResponseWriter, r *http.Request) 
 			continue
 		}
 
-		plugin, _ := s.appRepo.Get(p.Slug)
-		phpData = append(phpData, types.LV{Value: strings.ReplaceAll(p.Slug, "php", ""), Label: plugin.Name})
+		item, _ := s.appRepo.Get(p.Slug)
+		phpData = append(phpData, types.LVInt{Value: cast.ToInt(strings.ReplaceAll(p.Slug, "php", "")), Label: item.Name})
 	}
 
 	if mysqlInstalled {
@@ -249,16 +202,8 @@ func (s *InfoService) InstalledDbAndPhp(w http.ResponseWriter, r *http.Request) 
 	})
 }
 
-// CheckUpdate
-//
-//	@Summary	检查更新
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/checkUpdate [get]
 func (s *InfoService) CheckUpdate(w http.ResponseWriter, r *http.Request) {
-	current := panel.Conf.MustString("app.version")
+	current := app.Conf.MustString("app.version")
 	latest, err := tools.GetLatestPanelVersion()
 	if err != nil {
 		Error(w, http.StatusInternalServerError, "获取最新版本失败")
@@ -287,16 +232,8 @@ func (s *InfoService) CheckUpdate(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// UpdateInfo
-//
-//	@Summary	版本更新信息
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/updateInfo [get]
 func (s *InfoService) UpdateInfo(w http.ResponseWriter, r *http.Request) {
-	current := panel.Conf.MustString("app.version")
+	current := app.Conf.MustString("app.version")
 	latest, err := tools.GetLatestPanelVersion()
 	if err != nil {
 		Error(w, http.StatusInternalServerError, "获取最新版本失败")
@@ -337,20 +274,12 @@ func (s *InfoService) UpdateInfo(w http.ResponseWriter, r *http.Request) {
 	Success(w, versionInfo)
 }
 
-// Update
-//
-//	@Summary	更新面板
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/update [post]
 func (s *InfoService) Update(w http.ResponseWriter, r *http.Request) {
 	if s.taskRepo.HasRunningTask() {
 		Error(w, http.StatusInternalServerError, "当前有任务正在执行，禁止更新")
 		return
 	}
-	if err := panel.Orm.Exec("PRAGMA wal_checkpoint(TRUNCATE)").Error; err != nil {
+	if err := app.Orm.Exec("PRAGMA wal_checkpoint(TRUNCATE)").Error; err != nil {
 		types.Status = types.StatusFailed
 		Error(w, http.StatusInternalServerError, fmt.Sprintf("面板数据库异常，已终止操作：%s", err.Error()))
 		return
@@ -374,14 +303,6 @@ func (s *InfoService) Update(w http.ResponseWriter, r *http.Request) {
 	Success(w, nil)
 }
 
-// Restart
-//
-//	@Summary	重启面板
-//	@Tags		信息服务
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{object}	SuccessResponse
-//	@Router		/info/restart [post]
 func (s *InfoService) Restart(w http.ResponseWriter, r *http.Request) {
 	if s.taskRepo.HasRunningTask() {
 		Error(w, http.StatusInternalServerError, "当前有任务正在执行，禁止重启")

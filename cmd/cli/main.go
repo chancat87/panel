@@ -17,6 +17,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 package main
 
 import (
+	_ "time/tzdata"
+
 	"github.com/TheTNB/panel/internal/bootstrap"
 )
 

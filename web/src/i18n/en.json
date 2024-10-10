@@ -100,8 +100,8 @@
         "supporter": ""
       }
     },
-    "plugins": {
-      "title": "Quick Plugin"
+    "apps": {
+      "title": "Quick App"
     }
   },
   "homeUpdate": {
@@ -127,32 +127,31 @@
   "monitorIndex": {
     "title": "Monitoring"
   },
-  "pluginIndex": {
-    "title": "Plugins",
+  "appIndex": {
+    "title": "Apps",
     "alerts": {
-      "info": "Click the button once, please do not click it repeatedly to avoid repeated execution!",
-      "warning": "It is strongly recommended to take a backup/snapshot before upgrading the plug-in to avoid being unable to roll back if problems arise!",
+      "cache": "Cache updated successfully",
+      "warning": "It is strongly recommended to take a backup/snapshot before upgrading the app to avoid being unable to roll back if problems arise!",
       "setup": "Setup successful",
       "install": "The task has been submitted, please check the task progress later",
       "update": "The task has been submitted, please go to the task center to check the task progress",
       "uninstall": "The task has been submitted, please go to the task center to check the task progress"
     },
     "buttons": {
+      "updateCache": "Update cache",
       "install": "Install",
       "manage": "Manage",
       "update": "Upgrade",
       "uninstall": "Uninstall"
     },
     "confirm": {
-      "install": "Are you sure you want to install the plugin {plugin}?",
-      "update": "Upgrading the {plugin} plug-in may reset related configurations to the default state. Are you sure you want to continue?",
-      "uninstall": "Are you sure you want to uninstall the plugin {plugin}?"
+      "update": "Upgrading the {app} app may reset related configurations to the default state. Are you sure you want to continue?",
+      "uninstall": "Are you sure you want to uninstall the app {app}?"
     },
     "columns": {
       "name": "Name",
       "description": "Description",
       "installedVersion": "Installed Version",
-      "version": "Latest Version",
       "show": "Homepage Display",
       "actions": "Actions"
     }
@@ -227,7 +226,7 @@
           "label": "Panel name",
           "placeholder": "Rat Panel"
         },
-        "language": {
+        "locale": {
           "label": "Language",
           "placeholder": "Select language"
         },
@@ -349,7 +348,7 @@
       "actions": "Actions"
     },
     "create": {
-      "trigger": "add website",
+      "trigger": "Create website",
       "title": "Create a new website",
       "fields": {
         "name": {

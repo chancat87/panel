@@ -1,14 +1,13 @@
 import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 
-import { convertEnv, getRootPath, getSrcPath } from './build/utils'
 import { createViteProxy, viteDefine } from './build/config'
 import { setupVitePlugins } from './build/plugins'
+import { convertEnv, getRootPath, getSrcPath } from './build/utils'
 
 export default defineConfig((configEnv: ConfigEnv) => {
   const srcPath = getSrcPath()
   const rootPath = getRootPath()
-  const isBuild = configEnv.command === 'build'
 
   const viteEnv = convertEnv(loadEnv(configEnv.mode, process.cwd()))
 
@@ -22,7 +21,7 @@ export default defineConfig((configEnv: ConfigEnv) => {
       }
     },
     define: viteDefine,
-    plugins: setupVitePlugins(viteEnv, isBuild),
+    plugins: setupVitePlugins(viteEnv),
     server: {
       host: '0.0.0.0',
       port: VITE_PORT,
@@ -35,6 +34,13 @@ export default defineConfig((configEnv: ConfigEnv) => {
       chunkSizeWarningLimit: 1024, // chunk 大小警告的限制（单位kb）
       commonjsOptions: {
         ignoreTryCatch: false
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or 'modern'
+        }
       }
     }
   }

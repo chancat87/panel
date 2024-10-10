@@ -9,6 +9,7 @@ import (
 	"github.com/go-rat/chix"
 	"github.com/spf13/cast"
 
+	"github.com/TheTNB/panel/internal/app"
 	"github.com/TheTNB/panel/internal/biz"
 	"github.com/TheTNB/panel/internal/data"
 	"github.com/TheTNB/panel/internal/service"
@@ -16,7 +17,6 @@ import (
 	"github.com/TheTNB/panel/pkg/os"
 	"github.com/TheTNB/panel/pkg/shell"
 	"github.com/TheTNB/panel/pkg/str"
-	"github.com/TheTNB/panel/pkg/types"
 )
 
 type Service struct {
@@ -43,7 +43,7 @@ func (s *Service) List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var jails []types.Fail2banJail
+	var jails []Jail
 	for i, jail := range jailList {
 		if i == 0 {
 			continue
@@ -60,7 +60,7 @@ func (s *Service) List(w http.ResponseWriter, r *http.Request) {
 		jailFindTime := regexp.MustCompile(`findtime = (.*)`).FindStringSubmatch(jailRaw)
 		jailBanTime := regexp.MustCompile(`bantime = (.*)`).FindStringSubmatch(jailRaw)
 
-		jails = append(jails, types.Fail2banJail{
+		jails = append(jails, Jail{
 			Name:     jailName,
 			Enabled:  jailEnabled,
 			LogPath:  jailLogPath[1],
@@ -127,7 +127,7 @@ maxretry = ` + jailMaxRetry + `
 findtime = ` + jailFindTime + `
 bantime = ` + jailBanTime + `
 action = %(action_mwl)s
-logpath = /www/wwwlogs/` + website.Name + `.log
+logpath = ` + app.Root + `/wwwlogs/` + website.Name + `.log
 # ` + jailWebsiteName + `-` + jailWebsiteMode + `-END
 `
 		raw += rule
@@ -170,13 +170,13 @@ ignoreregex =
 			filter = "sshd"
 			port, err = shell.Execf("cat /etc/ssh/sshd_config | grep 'Port ' | awk '{print $2}'")
 		case "mysql":
-			logPath = "/www/server/mysql/mysql-error.log"
+			logPath = app.Root + "/server/mysql/mysql-error.log"
 			filter = "mysqld-auth"
-			port, err = shell.Execf("cat /www/server/mysql/conf/my.cnf | grep 'port' | head -n 1 | awk '{print $3}'")
+			port, err = shell.Execf("cat %s/server/mysql/conf/my.cnf | grep 'port' | head -n 1 | awk '{print $3}'", app.Root)
 		case "pure-ftpd":
 			logPath = "/var/log/messages"
 			filter = "pure-ftpd"
-			port, err = shell.Execf(`cat /www/server/pure-ftpd/etc/pure-ftpd.conf | grep "Bind" | awk '{print $2}' | awk -F "," '{print $2}'`)
+			port, err = shell.Execf(`cat %s/server/pure-ftpd/etc/pure-ftpd.conf | grep "Bind" | awk '{print $2}' | awk -F "," '{print $2}'`, app.Root)
 		default:
 			service.Error(w, http.StatusUnprocessableEntity, "未知服务")
 			return

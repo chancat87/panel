@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type { WebsiteSetting } from '@/views/website/types'
-import website from '@/api/panel/website'
-import { NButton } from 'naive-ui'
-import info from '@/api/panel/info'
 import Editor from '@guolao/vue-monaco-editor'
-import { themeConfig, themeDarkConfig, tokenConf } from 'monaco-editor-nginx/cjs/conf'
-import suggestions from 'monaco-editor-nginx/cjs/suggestions'
-import { directives } from 'monaco-editor-nginx/cjs/directives'
+import { NButton } from 'naive-ui'
+
+import info from '@/api/panel/info'
+import website from '@/api/panel/website'
+import type { WebsiteSetting } from '@/views/website/types'
 
 const route = useRoute()
 const { id } = route.params
@@ -33,10 +31,6 @@ const setting = ref<WebsiteSetting>({
   http_redirect: false,
   hsts: false,
   ocsp: false,
-  waf: false,
-  waf_mode: '',
-  waf_cc_deny: '',
-  waf_cache: '',
   rewrite: '',
   raw: '',
   log: ''
@@ -44,8 +38,8 @@ const setting = ref<WebsiteSetting>({
 const installedDbAndPhp = ref({
   php: [
     {
-      label: '',
-      value: ''
+      label: '不使用',
+      value: 0
     }
   ],
   db: [
@@ -105,58 +99,6 @@ const title = computed(() => {
   return '编辑网站 - 加载中...'
 })
 
-const editorOnBeforeMount = (monaco: any) => {
-  monaco.languages.register({
-    id: 'nginx'
-  })
-
-  monaco.languages.setMonarchTokensProvider('nginx', tokenConf)
-  monaco.editor.defineTheme('nginx-theme', themeConfig)
-  monaco.editor.defineTheme('nginx-theme-dark', themeDarkConfig)
-
-  monaco.languages.registerCompletionItemProvider('nginx', {
-    provideCompletionItems: (model: any, position: any) => {
-      const word = model.getWordUntilPosition(position)
-      const range = {
-        startLineNumber: position.lineNumber,
-        endLineNumber: position.lineNumber,
-        startColumn: word.startColumn,
-        endColumn: word.endColumn
-      }
-      return { suggestions: suggestions(range) }
-    }
-  })
-
-  monaco.languages.registerHoverProvider('nginx', {
-    provideHover: (model: any, position: any) => {
-      const word = model.getWordAtPosition(position)
-      if (!word) return
-      const data = directives.find((item) => item.n === word.word || item.n === `$${word.word}`)
-      if (!data) return
-      const range = {
-        startLineNumber: position.lineNumber,
-        endLineNumber: position.lineNumber,
-        startColumn: word.startColumn,
-        endColumn: word.endColumn
-      }
-      const contents = [{ value: `**\`${data.n}\`** | ${data.m} | ${data.c || ''}` }]
-      if (data.s) {
-        contents.push({ value: `**syntax:** ${data.s || ''}` })
-      }
-      if (data.v) {
-        contents.push({ value: `**default:** ${data.v || ''}` })
-      }
-      if (data.d) {
-        contents.push({ value: `${data.d}` })
-      }
-      return {
-        contents: [...contents],
-        range: range
-      }
-    }
-  })
-}
-
 onMounted(() => {
   getWebsiteSetting()
   getPhpAndDb()
@@ -187,12 +129,17 @@ onMounted(() => {
             />
           </n-form-item>
           <n-form-item label="端口">
-            <n-dynamic-input
-              v-model:value="setting.ports"
-              placeholder="80"
-              :min="1"
-              show-sort-button
-            />
+            <n-dynamic-input v-model:value="setting.ports" show-sort-button>
+              <template #default="{ index }">
+                <n-input-number
+                  v-model:value="setting.ports[index]"
+                  :min="1"
+                  :max="65535"
+                  clearable
+                  w-full
+                />
+              </template>
+            </n-dynamic-input>
           </n-form-item>
         </n-form>
         <n-skeleton v-else text :repeat="10" />
@@ -214,7 +161,7 @@ onMounted(() => {
           <n-form-item label="PHP版本">
             <n-select
               v-model:value="setting.php"
-              default-value="0"
+              :default-value="0"
               :options="installedDbAndPhp.php"
               placeholder="选择PHP版本"
               @keydown.enter.prevent
@@ -223,35 +170,6 @@ onMounted(() => {
           </n-form-item>
           <n-form-item label="防跨站攻击（PHP）">
             <n-switch v-model:value="setting.open_basedir" />
-          </n-form-item>
-        </n-form>
-        <n-skeleton v-else text :repeat="10" />
-      </n-tab-pane>
-      <n-tab-pane name="waf" tab="防火墙">
-        <n-alert type="info" mb-20>
-          面板自带开源的 ngx_waf 防火墙
-          <br />
-          文档参考：<a
-            href="https://docs.addesp.com/ngx_waf/zh-cn/advance/directive.html"
-            target="_blank"
-            >https://docs.addesp.com/ngx_waf/zh-cn/advance/directive.html</a
-          >
-        </n-alert>
-        <n-form v-if="setting">
-          <n-form-item label="总开关">
-            <n-space vertical>
-              <n-switch v-model:value="setting.waf" />
-              <n-tag>只有打开了总开关，下面的设置才会生效！</n-tag>
-            </n-space>
-          </n-form-item>
-          <n-form-item label="模式">
-            <n-input v-model:value="setting.waf_mode" placeholder="DYNAMIC" />
-          </n-form-item>
-          <n-form-item label="CC">
-            <n-input v-model:value="setting.waf_cc_deny" placeholder="rate=1000r/m duration=60m" />
-          </n-form-item>
-          <n-form-item label="缓存">
-            <n-input v-model:value="setting.waf_cache" placeholder="capacity=50" />
           </n-form-item>
         </n-form>
         <n-skeleton v-else text :repeat="10" />
@@ -354,10 +272,9 @@ onMounted(() => {
           <Editor
             v-if="setting"
             v-model:value="setting.rewrite"
-            language="nginx"
-            theme="nginx-theme-dark"
+            language="ini"
+            theme="vs-dark"
             height="60vh"
-            @before-mount="editorOnBeforeMount"
             :options="{
               automaticLayout: true,
               formatOnType: true,
@@ -385,10 +302,9 @@ onMounted(() => {
           <Editor
             v-if="setting"
             v-model:value="setting.raw"
-            language="nginx"
-            theme="nginx-theme-dark"
+            language="ini"
+            theme="vs-dark"
             height="60vh"
-            @before-mount="editorOnBeforeMount"
             :options="{
               automaticLayout: true,
               formatOnType: true,

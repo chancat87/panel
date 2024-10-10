@@ -1,25 +1,24 @@
 <script lang="ts" setup>
+import Editor from '@guolao/vue-monaco-editor'
 import {
   NButton,
+  NCheckbox,
   NDataTable,
-  NSpace,
-  NSwitch,
-  NPopconfirm,
-  NInput,
   NFlex,
-  NCheckbox
+  NInput,
+  NPopconfirm,
+  NSpace,
+  NSwitch
 } from 'naive-ui'
-import website from '@/api/panel/website'
-import info from '@/api/panel/info'
-import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
-import type { Backup, Website } from './types'
-import type { UploadFileInfo, MessageReactive } from 'naive-ui'
-import Editor from '@guolao/vue-monaco-editor'
 import { useI18n } from 'vue-i18n'
+
+import info from '@/api/panel/info'
+import website from '@/api/panel/website'
+import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
+import type { Website } from './types'
 
 const { t } = useI18n()
 const router = useRouter()
-let messageReactive: MessageReactive | null = null
 const selectedRowKeys = ref<any>([])
 
 const columns: any = [
@@ -105,22 +104,6 @@ const columns: any = [
           NButton,
           {
             size: 'small',
-            type: 'warning',
-            secondary: true,
-            onClick: () => {
-              currentWebsite.value = row.id
-              backupModal.value = true
-            }
-          },
-          {
-            default: () => '备份',
-            icon: renderIcon('majesticons:eye-line', { size: 14 })
-          }
-        ),
-        h(
-          NButton,
-          {
-            size: 'small',
             type: 'primary',
             style: 'margin-left: 15px;',
             onClick: () => handleEdit(row)
@@ -186,63 +169,8 @@ const columns: any = [
     }
   }
 ]
-const backupColumns: any = [
-  { title: '文件名', key: 'name', fixed: 'left', resizable: true, ellipsis: { tooltip: true } },
-  { title: '大小', key: 'size', width: 200, ellipsis: { tooltip: true } },
-  {
-    title: '操作',
-    key: 'actions',
-    width: 200,
-    align: 'center',
-    fixed: 'right',
-    hideInExcel: true,
-    render(row: any) {
-      return [
-        h(
-          NButton,
-          {
-            size: 'small',
-            type: 'warning',
-            secondary: true,
-            onClick: () => handleRestoreBackup(row)
-          },
-          {
-            default: () => '恢复',
-            icon: renderIcon('material-symbols:settings-backup-restore-rounded', { size: 14 })
-          }
-        ),
-        h(
-          NPopconfirm,
-          {
-            onPositiveClick: () => handleDeleteBackup(row.name)
-          },
-          {
-            default: () => {
-              return '确定删除备份吗？'
-            },
-            trigger: () => {
-              return h(
-                NButton,
-                {
-                  size: 'small',
-                  type: 'error',
-                  style: 'margin-left: 15px;'
-                },
-                {
-                  default: () => '删除',
-                  icon: renderIcon('material-symbols:delete-outline', { size: 14 })
-                }
-              )
-            }
-          }
-        )
-      ]
-    }
-  }
-]
 
 const data = ref<Website[]>([] as Website[])
-const backup = ref<Backup[]>([])
 
 const pagination = reactive({
   page: 1,
@@ -253,27 +181,16 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [15, 30, 50, 100]
 })
-const backupPagination = reactive({
-  page: 1,
-  pageCount: 1,
-  pageSize: 10,
-  itemCount: 0,
-  showQuickJumper: true,
-  showSizePicker: true,
-  pageSizes: [10, 20, 50, 100]
-})
 
-const currentWebsite = ref(0)
 const addModal = ref(false)
 const editDefaultPageModal = ref(false)
-const backupModal = ref(false)
 
 const buttonLoading = ref(false)
 const buttonDisabled = ref(false)
 const addModel = ref({
   name: '',
   domains: [] as Array<string>,
-  ports: [] as Array<string>,
+  ports: [] as Array<number>,
   php: '0',
   db: false,
   db_type: '0',
@@ -336,10 +253,6 @@ const getDefaultPage = async () => {
   const { data } = await website.defaultConfig()
   editDefaultPageModel.value = data
 }
-const getBackupList = async (page: number, limit: number) => {
-  const { data } = await website.backupList(page, limit)
-  return data
-}
 
 const onPageChange = (page: number) => {
   pagination.page = page
@@ -349,22 +262,10 @@ const onPageChange = (page: number) => {
     pagination.pageCount = res.total / pagination.pageSize + 1
   })
 }
-const onBackupPageChange = (page: number) => {
-  backupPagination.page = page
-  getBackupList(page, backupPagination.pageSize).then((res) => {
-    backup.value = res.items
-    backupPagination.itemCount = res.total
-    backupPagination.pageCount = res.total / backupPagination.pageSize + 1
-  })
-}
 
 const onPageSizeChange = (pageSize: number) => {
   pagination.pageSize = pageSize
   onPageChange(1)
-}
-const onBackupPageSizeChange = (pageSize: number) => {
-  backupPagination.pageSize = pageSize
-  onBackupPageChange(1)
 }
 
 const handleRemark = (row: any) => {
@@ -406,15 +307,15 @@ const handleAdd = async () => {
   buttonDisabled.value = true
   // 去除空的域名和端口
   addModel.value.domains = addModel.value.domains.filter((item) => item !== '')
-  addModel.value.ports = addModel.value.ports.filter((item) => item !== '')
+  addModel.value.ports = addModel.value.ports.filter((item) => item !== 0)
   // 端口为空自动添加 80 端口
   if (addModel.value.ports.length === 0) {
-    addModel.value.ports.push('80')
+    addModel.value.ports.push(80)
   }
   await website
-    .add(addModel.value)
+    .create(addModel.value)
     .then(() => {
-      window.$message.success('添加成功')
+      window.$message.success('创建成功')
       getWebsiteList(pagination.page, pagination.pageSize).then((res) => {
         data.value = res.items
         pagination.itemCount = res.total
@@ -424,7 +325,7 @@ const handleAdd = async () => {
       addModel.value = {
         name: '',
         domains: [] as Array<string>,
-        ports: [] as Array<string>,
+        ports: [] as Array<number>,
         php: '0',
         db: false,
         db_type: '0',
@@ -463,51 +364,6 @@ const batchDelete = async () => {
   onPageChange(pagination.page)
 }
 
-const handleUploadBackup = async (files: UploadFileInfo[]) => {
-  messageReactive = window.$message.loading('上传中...', {
-    duration: 0
-  })
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    const formData = new FormData()
-    formData.append('file', file.file as Blob, file.name)
-    await website.uploadBackup(formData).then(() => {
-      messageReactive?.destroy()
-      window.$message.success('上传成功')
-      onBackupPageChange(backupPagination.page)
-    })
-  }
-}
-
-const handleCreateBackup = async () => {
-  messageReactive = window.$message.loading('创建中...', {
-    duration: 0
-  })
-  await website.createBackup(currentWebsite.value).then(() => {
-    messageReactive?.destroy()
-    window.$message.success('创建成功')
-    onBackupPageChange(backupPagination.page)
-  })
-}
-
-const handleRestoreBackup = async (row: any) => {
-  messageReactive = window.$message.loading('恢复中...', {
-    duration: 0
-  })
-  await website.restoreBackup(currentWebsite.value, row.name).then(() => {
-    messageReactive?.destroy()
-    window.$message.success('恢复成功')
-    onBackupPageChange(backupPagination.page)
-  })
-}
-
-const handleDeleteBackup = async (name: string) => {
-  await website.deleteBackup(name).then(() => {
-    window.$message.success('删除成功')
-    onBackupPageChange(backupPagination.page)
-  })
-}
-
 const formatDbValue = (value: string) => {
   value = value.replace(/\./g, '_')
   value = value.replace(/-/g, '_')
@@ -522,7 +378,6 @@ onMounted(() => {
   onPageChange(pagination.page)
   getPhpAndDb()
   getDefaultPage()
-  onBackupPageChange(backupPagination.page)
 })
 </script>
 
@@ -593,12 +448,19 @@ onMounted(() => {
         <n-col :span="2"></n-col>
         <n-col :span="11">
           <n-form-item :label="$t('websiteIndex.create.fields.port.label')">
-            <n-dynamic-input
-              v-model:value="addModel.ports"
-              placeholder="80"
-              :min="1"
-              show-sort-button
-            />
+            <n-dynamic-input v-model:value="addModel.ports" show-sort-button>
+              <template #default="{ index }">
+                <div style="display: flex; align-items: center; width: 100%">
+                  <n-input-number
+                    v-model:value="addModel.ports[index]"
+                    :min="1"
+                    :max="65535"
+                    clearable
+                    w-full
+                  />
+                </div>
+              </template>
+            </n-dynamic-input>
           </n-form-item>
         </n-col>
       </n-row>
@@ -752,32 +614,5 @@ onMounted(() => {
         />
       </n-tab-pane>
     </n-tabs>
-  </n-modal>
-  <n-modal v-model:show="backupModal">
-    <n-card closable @close="() => (backupModal = false)" title="备份管理" style="width: 60vw">
-      <n-space vertical>
-        <n-space>
-          <n-button type="primary" @click="handleCreateBackup">创建备份</n-button>
-          <n-upload
-            accept=".zip,tar.gz,.tar,.rar,.bz2"
-            :default-upload="false"
-            :show-file-list="false"
-            @update:file-list="handleUploadBackup"
-          >
-            <n-button>上传备份</n-button>
-          </n-upload>
-        </n-space>
-        <n-data-table
-          striped
-          remote
-          :loading="false"
-          :columns="backupColumns"
-          :data="backup"
-          :row-key="(row: any) => row.name"
-          @update:page="onBackupPageChange"
-          @update:page-size="onBackupPageSizeChange"
-        />
-      </n-space>
-    </n-card>
   </n-modal>
 </template>

@@ -16,19 +16,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 package main
 
-import "github.com/TheTNB/panel/internal/bootstrap"
+import (
+	_ "time/tzdata"
 
-//	@title			耗子面板 API
-//	@version		2
-//	@description	耗子面板的 API 信息
+	"github.com/TheTNB/panel/internal/bootstrap"
+)
 
-//	@contact.name	耗子科技
-//	@contact.email	admin@haozi.net
-
-//	@license.name	GNU Affero General Public License v3
-//	@license		url   https://www.gnu.org/licenses/agpl-3.0.html
-
-// @BasePath	/api
 func main() {
 	bootstrap.BootWeb()
 }

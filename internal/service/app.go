@@ -8,7 +8,7 @@ import (
 	"github.com/TheTNB/panel/internal/biz"
 	"github.com/TheTNB/panel/internal/data"
 	"github.com/TheTNB/panel/internal/http/request"
-	"github.com/TheTNB/panel/pkg/str"
+	"github.com/TheTNB/panel/pkg/types"
 )
 
 type AppService struct {
@@ -22,55 +22,53 @@ func NewAppService() *AppService {
 }
 
 func (s *AppService) List(w http.ResponseWriter, r *http.Request) {
-	plugins := s.appRepo.All()
-	installedPlugins, err := s.appRepo.Installed()
+	all := s.appRepo.All()
+	installedApps, err := s.appRepo.Installed()
 	if err != nil {
 		Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	installedPluginsMap := make(map[string]*biz.App)
+	installedAppMap := make(map[string]*biz.App)
 
-	for _, p := range installedPlugins {
-		installedPluginsMap[p.Slug] = p
+	for _, p := range installedApps {
+		installedAppMap[p.Slug] = p
 	}
 
-	type plugin struct {
-		Name             string   `json:"name"`
-		Description      string   `json:"description"`
-		Slug             string   `json:"slug"`
-		Version          string   `json:"version"`
-		Requires         []string `json:"requires"`
-		Excludes         []string `json:"excludes"`
-		Installed        bool     `json:"installed"`
-		InstalledVersion string   `json:"installed_version"`
-		Show             bool     `json:"show"`
-	}
-
-	var pluginArr []plugin
-	for _, item := range plugins {
-		installed, installedVersion, currentVersion, show := false, "", "", false
-		if str.FirstElement(item.Versions) != nil {
-			currentVersion = str.FirstElement(item.Versions).Version
-		}
-		if _, ok := installedPluginsMap[item.Slug]; ok {
+	var apps []types.AppCenter
+	for _, item := range all {
+		installed, installedChannel, installedVersion, updateExist, show := false, "", "", false, false
+		if _, ok := installedAppMap[item.Slug]; ok {
 			installed = true
-			installedVersion = installedPluginsMap[item.Slug].Version
-			show = installedPluginsMap[item.Slug].Show
+			installedChannel = installedAppMap[item.Slug].Channel
+			installedVersion = installedAppMap[item.Slug].Version
+			updateExist = s.appRepo.UpdateExist(item.Slug)
+			show = installedAppMap[item.Slug].Show
 		}
-		pluginArr = append(pluginArr, plugin{
-			Name:             item.Name,
-			Description:      item.Description,
-			Slug:             item.Slug,
-			Version:          currentVersion,
-			Requires:         item.Requires,
-			Excludes:         item.Excludes,
+		apps = append(apps, types.AppCenter{
+			Name:        item.Name,
+			Description: item.Description,
+			Slug:        item.Slug,
+			Channels: []struct {
+				Slug      string `json:"slug"`
+				Name      string `json:"name"`
+				Panel     string `json:"panel"`
+				Install   string `json:"-"`
+				Uninstall string `json:"-"`
+				Update    string `json:"-"`
+				Subs      []struct {
+					Log     string `json:"log"`
+					Version string `json:"version"`
+				} `json:"subs"`
+			}(item.Channels),
 			Installed:        installed,
+			InstalledChannel: installedChannel,
 			InstalledVersion: installedVersion,
+			UpdateExist:      updateExist,
 			Show:             show,
 		})
 	}
 
-	paged, total := Paginate(r, pluginArr)
+	paged, total := Paginate(r, apps)
 
 	Success(w, chix.M{
 		"total": total,
@@ -79,13 +77,13 @@ func (s *AppService) List(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *AppService) Install(w http.ResponseWriter, r *http.Request) {
-	req, err := Bind[request.PluginSlug](r)
+	req, err := Bind[request.App](r)
 	if err != nil {
 		Error(w, http.StatusUnprocessableEntity, err.Error())
 		return
 	}
 
-	if err = s.appRepo.Install(req.Slug); err != nil {
+	if err = s.appRepo.Install(req.Channel, req.Slug); err != nil {
 		Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -94,13 +92,13 @@ func (s *AppService) Install(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *AppService) Uninstall(w http.ResponseWriter, r *http.Request) {
-	req, err := Bind[request.PluginSlug](r)
+	req, err := Bind[request.AppSlug](r)
 	if err != nil {
 		Error(w, http.StatusUnprocessableEntity, err.Error())
 		return
 	}
 
-	if err = s.appRepo.Uninstall(req.Slug); err != nil {
+	if err = s.appRepo.UnInstall(req.Slug); err != nil {
 		Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -109,7 +107,7 @@ func (s *AppService) Uninstall(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *AppService) Update(w http.ResponseWriter, r *http.Request) {
-	req, err := Bind[request.PluginSlug](r)
+	req, err := Bind[request.AppSlug](r)
 	if err != nil {
 		Error(w, http.StatusUnprocessableEntity, err.Error())
 		return
@@ -124,7 +122,7 @@ func (s *AppService) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *AppService) UpdateShow(w http.ResponseWriter, r *http.Request) {
-	req, err := Bind[request.PluginUpdateShow](r)
+	req, err := Bind[request.AppUpdateShow](r)
 	if err != nil {
 		Error(w, http.StatusUnprocessableEntity, err.Error())
 		return
@@ -139,13 +137,13 @@ func (s *AppService) UpdateShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *AppService) IsInstalled(w http.ResponseWriter, r *http.Request) {
-	req, err := Bind[request.PluginSlug](r)
+	req, err := Bind[request.AppSlug](r)
 	if err != nil {
 		Error(w, http.StatusUnprocessableEntity, err.Error())
 		return
 	}
 
-	plugin, err := s.appRepo.Get(req.Slug)
+	app, err := s.appRepo.Get(req.Slug)
 	if err != nil {
 		Error(w, http.StatusInternalServerError, err.Error())
 		return
@@ -158,7 +156,7 @@ func (s *AppService) IsInstalled(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Success(w, chix.M{
-		"name":      plugin.Name,
+		"name":      app.Name,
 		"installed": installed,
 	})
 }

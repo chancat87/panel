@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { NButton, NSpace } from 'naive-ui'
+
 import file from '@/api/panel/file'
 import EventBus from '@/utils/event'
 import { checkName, lastDirectory } from '@/utils/file'
@@ -113,7 +114,7 @@ const bulkDelete = () => {
       ]"
       @update:value="showNew"
     >
-      <n-button type="primary"> 新建 </n-button>
+      <n-button type="primary"> 创建 </n-button>
     </n-popselect>
     <n-button @click="upload = true"> 上传 </n-button>
     <n-button style="display: none"> 远程下载 </n-button>
@@ -140,7 +141,7 @@ const bulkDelete = () => {
   <n-modal
     v-model:show="newModal"
     preset="card"
-    title="新建"
+    title="创建"
     style="width: 60vw"
     size="huge"
     :bordered="false"

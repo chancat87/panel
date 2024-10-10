@@ -3,12 +3,11 @@ package route
 import (
 	"io/fs"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	httpSwagger "github.com/swaggo/http-swagger/v2"
 
-	_ "github.com/TheTNB/panel/docs"
 	"github.com/TheTNB/panel/internal/embed"
 	"github.com/TheTNB/panel/internal/http/middleware"
 	"github.com/TheTNB/panel/internal/service"
@@ -27,8 +26,8 @@ func Http(r chi.Router) {
 		r.Route("/info", func(r chi.Router) {
 			info := service.NewInfoService()
 			r.Get("/panel", info.Panel)
-			r.With(middleware.MustLogin).Get("/homePlugins", info.HomePlugins)
-			r.With(middleware.MustLogin).Get("/nowMonitor", info.NowMonitor)
+			r.With(middleware.MustLogin).Get("/homeApps", info.HomeApps)
+			r.With(middleware.MustLogin).Get("/realtime", info.Realtime)
 			r.With(middleware.MustLogin).Get("/systemInfo", info.SystemInfo)
 			r.With(middleware.MustLogin).Get("/countInfo", info.CountInfo)
 			r.With(middleware.MustLogin).Get("/installedDbAndPhp", info.InstalledDbAndPhp)
@@ -39,13 +38,12 @@ func Http(r chi.Router) {
 		})
 
 		r.Route("/task", func(r chi.Router) {
-			// TODO 修改前端
 			r.Use(middleware.MustLogin)
 			task := service.NewTaskService()
 			r.Get("/status", task.Status)
 			r.Get("/", task.List)
-			r.Get("/{id}", task.Get)       // TODO 修改前端
-			r.Delete("/{id}", task.Delete) // TODO 修改前端
+			r.Get("/{id}", task.Get)
+			r.Delete("/{id}", task.Delete)
 		})
 
 		r.Route("/website", func(r chi.Router) {
@@ -114,7 +112,7 @@ func Http(r chi.Router) {
 		})
 
 		r.Route("/app", func(r chi.Router) {
-			//r.Use(middleware.MustLogin)
+			r.Use(middleware.MustLogin)
 			app := service.NewAppService()
 			r.Get("/list", app.List)
 			r.Post("/install", app.Install)
@@ -266,10 +264,9 @@ func Http(r chi.Router) {
 		})
 	})
 
-	r.With(middleware.MustLogin).Mount("/swagger", httpSwagger.Handler())
 	r.NotFound(func(writer http.ResponseWriter, request *http.Request) {
 		// /api 开头的返回 404
-		if request.URL.Path[:4] == "/api" {
+		if strings.HasPrefix(request.URL.Path, "/api") {
 			http.NotFound(writer, request)
 			return
 		}

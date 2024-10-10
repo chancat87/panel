@@ -6,12 +6,11 @@ import (
 	"path/filepath"
 	"regexp"
 	"strconv"
+	"time"
 
-	"github.com/golang-module/carbon/v2"
-
+	"github.com/TheTNB/panel/internal/app"
 	"github.com/TheTNB/panel/internal/biz"
 	"github.com/TheTNB/panel/internal/http/request"
-	"github.com/TheTNB/panel/internal/panel"
 	"github.com/TheTNB/panel/pkg/io"
 	"github.com/TheTNB/panel/pkg/os"
 	"github.com/TheTNB/panel/pkg/shell"
@@ -31,7 +30,7 @@ func NewCronRepo() biz.CronRepo {
 
 func (r *cronRepo) Count() (int64, error) {
 	var count int64
-	if err := panel.Orm.Model(&biz.Cron{}).Count(&count).Error; err != nil {
+	if err := app.Orm.Model(&biz.Cron{}).Count(&count).Error; err != nil {
 		return 0, err
 	}
 
@@ -41,13 +40,13 @@ func (r *cronRepo) Count() (int64, error) {
 func (r *cronRepo) List(page, limit uint) ([]*biz.Cron, int64, error) {
 	var cron []*biz.Cron
 	var total int64
-	err := panel.Orm.Model(&biz.Cert{}).Order("id desc").Count(&total).Offset(int((page - 1) * limit)).Limit(int(limit)).Find(&cron).Error
+	err := app.Orm.Model(&biz.Cron{}).Order("id desc").Count(&total).Offset(int((page - 1) * limit)).Limit(int(limit)).Find(&cron).Error
 	return cron, total, err
 }
 
 func (r *cronRepo) Get(id uint) (*biz.Cron, error) {
 	cron := new(biz.Cron)
-	if err := panel.Orm.Where("id = ?", id).First(cron).Error; err != nil {
+	if err := app.Orm.Where("id = ?", id).First(cron).Error; err != nil {
 		return nil, err
 	}
 
@@ -79,7 +78,7 @@ name=%s
 save=%d
 
 # 执行备份
-panel backup ${type} ${name} ${path} ${save} 2>&1
+panel backup ${type} ${name} ${path} ${save}
 `, req.BackupType, req.BackupPath, req.Target, req.Save)
 	}
 	if req.Type == "cutoff" {
@@ -92,19 +91,19 @@ name=%s
 save=%d
 
 # 执行切割
-panel cutoff ${name} ${save} 2>&1
+panel cutoff ${name} ${save}
 `, req.Target, req.Save)
 	}
 
-	shellDir := fmt.Sprintf("%s/server/cron/", panel.Root)
-	shellLogDir := fmt.Sprintf("%s/server/cron/logs/", panel.Root)
+	shellDir := fmt.Sprintf("%s/server/cron/", app.Root)
+	shellLogDir := fmt.Sprintf("%s/server/cron/logs/", app.Root)
 	if !io.Exists(shellDir) {
 		return errors.New("计划任务目录不存在")
 	}
 	if !io.Exists(shellLogDir) {
 		return errors.New("计划任务日志目录不存在")
 	}
-	shellFile := strconv.Itoa(int(carbon.Now().Timestamp())) + str.RandomString(16)
+	shellFile := strconv.Itoa(int(time.Now().Unix())) + str.RandomString(16)
 	if err := io.Write(filepath.Join(shellDir, shellFile+".sh"), script, 0700); err != nil {
 		return errors.New(err.Error())
 	}
@@ -120,7 +119,7 @@ panel cutoff ${name} ${save} 2>&1
 	cron.Shell = shellDir + shellFile + ".sh"
 	cron.Log = shellLogDir + shellFile + ".log"
 
-	if err := panel.Orm.Create(cron).Error; err != nil {
+	if err := app.Orm.Create(cron).Error; err != nil {
 		return err
 	}
 	if err := r.addToSystem(cron); err != nil {
@@ -146,7 +145,7 @@ func (r *cronRepo) Update(req *request.CronUpdate) error {
 
 	cron.Time = req.Time
 	cron.Name = req.Name
-	if err = panel.Orm.Save(cron).Error; err != nil {
+	if err = app.Orm.Save(cron).Error; err != nil {
 		return err
 	}
 
@@ -182,7 +181,7 @@ func (r *cronRepo) Delete(id uint) error {
 		return err
 	}
 
-	return panel.Orm.Delete(cron).Error
+	return app.Orm.Delete(cron).Error
 }
 
 func (r *cronRepo) Status(id uint, status bool) error {
@@ -200,7 +199,7 @@ func (r *cronRepo) Status(id uint, status bool) error {
 
 	cron.Status = status
 
-	return panel.Orm.Save(cron).Error
+	return app.Orm.Save(cron).Error
 }
 
 func (r *cronRepo) Log(id uint) (string, error) {

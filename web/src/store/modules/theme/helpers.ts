@@ -1,6 +1,6 @@
+import { addColorAlpha, getColorPalette } from '@/utils'
 import type { GlobalThemeOverrides } from 'naive-ui'
 import themeSetting from '~/settings/theme.json'
-import { addColorAlpha, getColorPalette } from '@/utils'
 
 type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error'
 type ColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active'
@@ -30,8 +30,8 @@ export function initThemeSettings(): Theme.Setting {
     warning: '#faad14',
     error: '#f5222d'
   }
-  const language = themeSetting.language || 'zh_CN'
-  return { isMobile, darkMode, sider, header, tab, primaryColor, otherColor, language }
+  const locale = themeSetting.locale || 'zh_CN'
+  return { isMobile, darkMode, sider, header, tab, primaryColor, otherColor, locale }
 }
 
 /** 获取naive的主题颜色 */

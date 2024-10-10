@@ -13,15 +13,19 @@ type App struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Categories  []string  `json:"categories"`
-	Requires    []string  `json:"requires"`
-	Excludes    []string  `json:"excludes"`
-	Versions    []struct {
-		Version      string `json:"version"`
-		Install      string `json:"install"`
-		Uninstall    string `json:"uninstall"`
-		Update       string `json:"update"`
-		PanelVersion string `json:"panel_version"`
-	} `json:"versions"`
+	Depends     string    `json:"depends"`
+	Channels    []struct {
+		Slug      string `json:"slug"`
+		Name      string `json:"name"`
+		Panel     string `json:"panel"`
+		Install   string `json:"install"`
+		Uninstall string `json:"uninstall"`
+		Update    string `json:"update"`
+		Subs      []struct {
+			Log     string `json:"log"`
+			Version string `json:"version"`
+		} `json:"subs"`
+	} `json:"channels"`
 	Order int `json:"order"`
 }
 
