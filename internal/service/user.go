@@ -120,12 +120,14 @@ func (s *UserService) Login(w http.ResponseWriter, r *http.Request) {
 
 func (s *UserService) Logout(w http.ResponseWriter, r *http.Request) {
 	sess, err := s.session.GetSession(r)
-	if err == nil {
-		if err = sess.Invalidate(); err != nil {
-			Error(w, http.StatusInternalServerError, "%v", err)
-			return
-		}
+	if err != nil {
+		Error(w, http.StatusInternalServerError, "%v", err)
 	}
+
+	sess.Forget("user_id")
+	sess.Forget("key")
+	sess.Forget("safe_login")
+	sess.Forget("safe_client")
 
 	Success(w, nil)
 }
@@ -204,6 +206,21 @@ func (s *UserService) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Success(w, user)
+}
+
+func (s *UserService) UpdateUsername(w http.ResponseWriter, r *http.Request) {
+	req, err := Bind[request.UserUpdateUsername](r)
+	if err != nil {
+		Error(w, http.StatusUnprocessableEntity, "%v", err)
+		return
+	}
+
+	if err = s.userRepo.UpdateUsername(req.ID, req.Username); err != nil {
+		Error(w, http.StatusInternalServerError, "%v", err)
+		return
+	}
+
+	Success(w, nil)
 }
 
 func (s *UserService) UpdatePassword(w http.ResponseWriter, r *http.Request) {

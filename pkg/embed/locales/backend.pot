@@ -7,8 +7,8 @@ msgstr ""
 "Language: \n"
 "X-Generator: xgotext\n"
 
-#: internal/data/website.go:270
-#: internal/data/website.go:643
+#: internal/data/website.go:279
+#: internal/data/website.go:652
 msgid "# Rewrite rule"
 msgstr ""
 
@@ -1280,7 +1280,7 @@ msgstr ""
 
 #: internal/data/app.go:213
 #: internal/data/app.go:268
-#: internal/http/middleware/must_install.go:41
+#: internal/http/middleware/must_install.go:38
 msgid "app %s not installed"
 msgstr ""
 
@@ -1295,13 +1295,13 @@ msgstr ""
 msgid "app %s requires panel version %s, current version %s"
 msgstr ""
 
-#: internal/http/middleware/must_install.go:27
+#: internal/http/middleware/must_install.go:24
 msgid "app not found"
 msgstr ""
 
-#: internal/data/setting.go:282
-#: internal/data/setting.go:343
-#: internal/data/setting.go:356
+#: internal/data/setting.go:283
+#: internal/data/setting.go:345
+#: internal/data/setting.go:358
 msgid "background task is running, modifying some settings is prohibited, please try again later"
 msgstr ""
 
@@ -1323,7 +1323,7 @@ msgstr ""
 msgid "can't download a directory"
 msgstr ""
 
-#: internal/data/website.go:371
+#: internal/data/website.go:380
 msgid "can't find %s database server, please add it first"
 msgstr ""
 
@@ -1332,7 +1332,7 @@ msgstr ""
 msgid "check server connection failed"
 msgstr ""
 
-#: internal/http/middleware/must_login.go:72
+#: internal/http/middleware/must_login.go:69
 msgid "client ip/ua changed, please login again"
 msgstr ""
 
@@ -1359,11 +1359,11 @@ msgstr ""
 msgid "database does not exist: %s"
 msgstr ""
 
-#: internal/data/website.go:725
+#: internal/data/website.go:734
 msgid "default document comment count is incorrect, expected 1, actual %d"
 msgstr ""
 
-#: internal/data/website.go:722
+#: internal/data/website.go:731
 msgid "default document comment not found"
 msgstr ""
 
@@ -1431,7 +1431,7 @@ msgstr ""
 msgid "failed to get %s service running status: %v"
 msgstr ""
 
-#: internal/data/website.go:306
+#: internal/data/website.go:315
 msgid "failed to get 404 template file: %v"
 msgstr ""
 
@@ -1504,7 +1504,7 @@ msgstr ""
 msgid "failed to get home apps: %v"
 msgstr ""
 
-#: internal/data/website.go:294
+#: internal/data/website.go:303
 msgid "failed to get index template file: %v"
 msgstr ""
 
@@ -1590,18 +1590,18 @@ msgid "failed to load MySQL root password: %v"
 msgstr ""
 
 #: internal/data/cert.go:92
-#: internal/data/setting.go:287
-#: internal/data/setting.go:359
-#: internal/data/website.go:475
-#: internal/data/website.go:764
+#: internal/data/setting.go:288
+#: internal/data/setting.go:361
+#: internal/data/website.go:484
+#: internal/data/website.go:773
 msgid "failed to parse certificate: %v"
 msgstr ""
 
 #: internal/data/cert.go:95
-#: internal/data/setting.go:290
-#: internal/data/setting.go:362
-#: internal/data/website.go:478
-#: internal/data/website.go:767
+#: internal/data/setting.go:291
+#: internal/data/setting.go:364
+#: internal/data/website.go:487
+#: internal/data/website.go:776
 msgid "failed to parse private key: %v"
 msgstr ""
 
@@ -1721,13 +1721,13 @@ msgstr ""
 msgid "get service port failed, please check if it is installed"
 msgstr ""
 
-#: internal/data/user.go:170
-#: internal/data/user.go:189
+#: internal/data/user.go:180
+#: internal/data/user.go:199
 #: internal/service/user.go:96
 msgid "invalid 2FA code"
 msgstr ""
 
-#: internal/http/middleware/entrance.go:109
+#: internal/http/middleware/entrance.go:110
 msgid "invalid access entrance"
 msgstr ""
 
@@ -1739,16 +1739,16 @@ msgstr ""
 msgid "invalid key, please refresh the page"
 msgstr ""
 
-#: internal/http/middleware/entrance.go:45
+#: internal/http/middleware/entrance.go:43
 msgid "invalid request domain: %s"
 msgstr ""
 
 #: internal/data/user_token.go:167
-#: internal/http/middleware/entrance.go:73
+#: internal/http/middleware/entrance.go:71
 msgid "invalid request ip: %s"
 msgstr ""
 
-#: internal/http/middleware/entrance.go:78
+#: internal/http/middleware/entrance.go:76
 msgid "invalid request user agent: %s"
 msgstr ""
 
@@ -1758,7 +1758,7 @@ msgstr ""
 msgid "invalid signature"
 msgstr ""
 
-#: internal/http/middleware/must_login.go:81
+#: internal/http/middleware/must_login.go:78
 msgid "invalid user id, please login again"
 msgstr ""
 
@@ -1799,7 +1799,7 @@ msgstr ""
 msgid "mysql not support database comment"
 msgstr ""
 
-#: internal/data/website.go:795
+#: internal/data/website.go:804
 msgid "not support one-key obtain wildcard certificate, please use Cert menu to obtain it with DNS method"
 msgstr ""
 
@@ -1844,7 +1844,7 @@ msgstr ""
 msgid "phpMyAdmin port not found"
 msgstr ""
 
-#: internal/data/user.go:96
+#: internal/data/user.go:106
 #: internal/service/file.go:135
 #: internal/service/file.go:222
 #: internal/service/file.go:251
@@ -1855,7 +1855,7 @@ msgstr ""
 msgid "please retry the manual obtain operation"
 msgstr ""
 
-#: internal/data/setting.go:311
+#: internal/data/setting.go:312
 msgid "port is already in use"
 msgstr ""
 
@@ -1875,20 +1875,20 @@ msgstr ""
 msgid "rule not found"
 msgstr ""
 
-#: internal/data/website.go:712
+#: internal/data/website.go:721
 msgid "runtime directory comment count is incorrect, expected 1, actual %d"
 msgstr ""
 
-#: internal/data/website.go:709
+#: internal/data/website.go:718
 msgid "runtime directory comment not found"
 msgstr ""
 
-#: internal/data/website.go:449
-#: internal/data/website.go:716
+#: internal/data/website.go:458
+#: internal/data/website.go:725
 msgid "runtime directory does not exist"
 msgstr ""
 
-#: internal/http/middleware/must_login.go:61
+#: internal/http/middleware/must_login.go:58
 msgid "session expired, please login again"
 msgstr ""
 
@@ -1986,17 +1986,17 @@ msgstr ""
 msgid "upload file error: %v"
 msgstr ""
 
-#: internal/data/user.go:116
-#: internal/data/user.go:123
+#: internal/data/user.go:126
 #: internal/data/user.go:133
+#: internal/data/user.go:143
 msgid "username or password error"
 msgstr ""
 
-#: internal/data/website.go:560
+#: internal/data/website.go:569
 msgid "website %s has bound certificates, please delete the certificate first"
 msgstr ""
 
-#: internal/data/website.go:456
+#: internal/data/website.go:465
 msgid "website directory does not exist"
 msgstr ""
 
@@ -2009,7 +2009,7 @@ msgstr ""
 msgid "write file error: %v"
 msgstr ""
 
-#: internal/http/middleware/must_login.go:51
+#: internal/http/middleware/must_login.go:48
 msgid "ws not allowed"
 msgstr ""
 
