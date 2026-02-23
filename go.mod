@@ -36,6 +36,7 @@ require (
 	github.com/libdns/porkbun v1.1.0
 	github.com/libdns/tencentcloud v1.4.3
 	github.com/libdns/westcn v1.0.2
+	github.com/libtnb/cache v1.2.0
 	github.com/libtnb/chix v1.3.2
 	github.com/libtnb/gormstore v1.1.1
 	github.com/libtnb/sessions v1.2.2
