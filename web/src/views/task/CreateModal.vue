@@ -110,7 +110,7 @@ const generateTaskName = () => {
     const backupTypeMap: Record<string, string> = {
       website: $gettext('Backup Website'),
       mysql: $gettext('Backup MySQL'),
-      postgres: $gettext('Backup PostgreSQL')
+      postgresql: $gettext('Backup PostgreSQL')
     }
     const prefix = backupTypeMap[formModel.value.sub_type] || $gettext('Backup')
     formModel.value.name = targets.length ? `${prefix} - ${targets.join(', ')}` : prefix
@@ -223,7 +223,7 @@ watch(show, (val) => {
       }
       if (
         props.editData.type === 'backup' &&
-        (config.type === 'mysql' || config.type === 'postgres')
+        (config.type === 'mysql' || config.type === 'postgresql')
       ) {
         loadDatabases(config.type)
       }
@@ -241,7 +241,7 @@ watch(
     if (formModel.value.type === 'cutoff' && val === 'container') {
       loadContainers()
     }
-    if (formModel.value.type === 'backup' && (val === 'mysql' || val === 'postgres')) {
+    if (formModel.value.type === 'backup' && (val === 'mysql' || val === 'postgresql')) {
       loadDatabases(val)
     }
   }
@@ -406,7 +406,7 @@ onMounted(() => {
           <n-radio value="mysql" :disabled="!mySQLInstalled">
             {{ $gettext('MySQL Database') }}
           </n-radio>
-          <n-radio value="postgres" :disabled="!postgreSQLInstalled">
+          <n-radio value="postgresql" :disabled="!postgreSQLInstalled">
             {{ $gettext('PostgreSQL Database') }}
           </n-radio>
         </n-radio-group>
@@ -439,7 +439,7 @@ onMounted(() => {
       <n-form-item
         v-if="
           formModel.type === 'backup' &&
-          (formModel.sub_type === 'mysql' || formModel.sub_type === 'postgres')
+          (formModel.sub_type === 'mysql' || formModel.sub_type === 'postgresql')
         "
         :label="$gettext('Select Database')"
       >
