@@ -213,6 +213,12 @@ func (r *FirewallScan) autoBlock() {
 	fw := r.ensureFirewall()
 	running, err := fw.Status()
 	if err != nil || !running {
+		// 防火墙未运行时也要清理计数器，防止无界增长
+		r.mu.Lock()
+		if len(r.ipCounters) > 0 {
+			r.ipCounters = make(map[string]*ipCounter)
+		}
+		r.mu.Unlock()
 		return
 	}
 
