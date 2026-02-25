@@ -40,9 +40,14 @@ func (s *FirewallScanService) UpdateSetting(w http.ResponseWriter, r *http.Reque
 	}
 
 	if err = s.scanRepo.UpdateSetting(&biz.ScanSetting{
-		Enabled:    req.Enabled,
-		Days:       req.Days,
-		Interfaces: req.Interfaces,
+		Enabled:        req.Enabled,
+		Days:           req.Days,
+		Interfaces:     req.Interfaces,
+		AutoBlock:      req.AutoBlock,
+		BlockThreshold: req.BlockThreshold,
+		BlockWindow:    req.BlockWindow,
+		BlockDuration:  req.BlockDuration,
+		Whitelist:      req.Whitelist,
 	}); err != nil {
 		Error(w, http.StatusInternalServerError, "%v", err)
 		return

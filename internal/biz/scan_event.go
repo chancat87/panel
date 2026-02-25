@@ -56,9 +56,14 @@ type ScanPortRank struct {
 
 // ScanSetting 扫描感知设置
 type ScanSetting struct {
-	Enabled    bool     `json:"enabled"`
-	Days       uint     `json:"days"`
-	Interfaces []string `json:"interfaces"`
+	Enabled        bool     `json:"enabled"`
+	Days           uint     `json:"days"`
+	Interfaces     []string `json:"interfaces"`
+	AutoBlock      bool     `json:"auto_block"`
+	BlockThreshold uint     `json:"block_threshold"` // 扫描次数阈值
+	BlockWindow    uint     `json:"block_window"`    // 检测窗口（分钟）
+	BlockDuration  uint     `json:"block_duration"`  // 屏蔽时长（小时），0=永久
+	Whitelist      []string `json:"whitelist"`       // IP/CIDR 白名单
 }
 
 // ScanEventRepo 扫描事件数据访问接口

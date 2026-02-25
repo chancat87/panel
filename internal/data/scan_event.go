@@ -156,10 +156,37 @@ func (r *scanEventRepo) GetSetting() (*biz.ScanSetting, error) {
 		_ = json.Unmarshal([]byte(interfacesStr), &interfaces)
 	}
 
+	autoBlock, err := r.setting.GetBool(biz.SettingKeyScanAwareAutoBlock)
+	if err != nil {
+		return nil, err
+	}
+	blockThreshold, err := r.setting.GetInt(biz.SettingKeyScanAwareBlockThreshold, 100)
+	if err != nil {
+		return nil, err
+	}
+	blockWindow, err := r.setting.GetInt(biz.SettingKeyScanAwareBlockWindow, 5)
+	if err != nil {
+		return nil, err
+	}
+	blockDuration, err := r.setting.GetInt(biz.SettingKeyScanAwareBlockDuration, 0)
+	if err != nil {
+		return nil, err
+	}
+
+	whitelist, err := r.setting.GetSlice(biz.SettingKeyScanAwareWhitelist)
+	if err != nil {
+		return nil, err
+	}
+
 	return &biz.ScanSetting{
-		Enabled:    enabled,
-		Days:       uint(days),
-		Interfaces: interfaces,
+		Enabled:        enabled,
+		Days:           uint(days),
+		Interfaces:     interfaces,
+		AutoBlock:      autoBlock,
+		BlockThreshold: uint(blockThreshold),
+		BlockWindow:    uint(blockWindow),
+		BlockDuration:  uint(blockDuration),
+		Whitelist:      whitelist,
 	}, nil
 }
 
@@ -175,7 +202,24 @@ func (r *scanEventRepo) UpdateSetting(setting *biz.ScanSetting) error {
 	if err != nil {
 		return err
 	}
-	return r.setting.Set(biz.SettingKeyScanAwareInterfaces, string(interfacesJSON))
+	if err = r.setting.Set(biz.SettingKeyScanAwareInterfaces, string(interfacesJSON)); err != nil {
+		return err
+	}
+
+	if err = r.setting.Set(biz.SettingKeyScanAwareAutoBlock, cast.ToString(setting.AutoBlock)); err != nil {
+		return err
+	}
+	if err = r.setting.Set(biz.SettingKeyScanAwareBlockThreshold, cast.ToString(setting.BlockThreshold)); err != nil {
+		return err
+	}
+	if err = r.setting.Set(biz.SettingKeyScanAwareBlockWindow, cast.ToString(setting.BlockWindow)); err != nil {
+		return err
+	}
+	if err = r.setting.Set(biz.SettingKeyScanAwareBlockDuration, cast.ToString(setting.BlockDuration)); err != nil {
+		return err
+	}
+
+	return r.setting.SetSlice(biz.SettingKeyScanAwareWhitelist, setting.Whitelist)
 }
 
 func (r *scanEventRepo) Clear() error {

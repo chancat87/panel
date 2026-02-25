@@ -33,6 +33,11 @@ const (
 	SettingKeyScanAware                SettingKey = "scan_aware"
 	SettingKeyScanAwareDays            SettingKey = "scan_aware_days"
 	SettingKeyScanAwareInterfaces      SettingKey = "scan_aware_interfaces"
+	SettingKeyScanAwareAutoBlock       SettingKey = "scan_aware_auto_block"
+	SettingKeyScanAwareBlockThreshold  SettingKey = "scan_aware_block_threshold"
+	SettingKeyScanAwareBlockWindow     SettingKey = "scan_aware_block_window"
+	SettingKeyScanAwareBlockDuration   SettingKey = "scan_aware_block_duration" // 小时，0=永久
+	SettingKeyScanAwareWhitelist       SettingKey = "scan_aware_whitelist"      // JSON 数组
 	SettingKeyWebsiteStatDays          SettingKey = "website_stat_days"
 	SettingKeyWebsiteStatErrBufMax     SettingKey = "website_stat_err_buf_max"
 	SettingKeyWebsiteStatUVMaxKeys     SettingKey = "website_stat_uv_max_keys"
