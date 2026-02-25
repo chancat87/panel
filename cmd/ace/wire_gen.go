@@ -36,7 +36,9 @@ import (
 	"github.com/acepanel/panel/v3/internal/route"
 	"github.com/acepanel/panel/v3/internal/service"
 	"github.com/acepanel/panel/v3/pkg/websitestat"
+)
 
+import (
 	_ "time/tzdata"
 )
 
