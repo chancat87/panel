@@ -5,7 +5,7 @@ package biz
 import (
 	time "time"
 
-	biz "github.com/acepanel/panel/internal/biz"
+	biz "github.com/acepanel/panel/v3/internal/biz"
 	mock "github.com/stretchr/testify/mock"
 )
 

@@ -16,12 +16,12 @@ import (
 	"github.com/moby/moby/client"
 	stdssh "golang.org/x/crypto/ssh"
 
-	"github.com/acepanel/panel/internal/biz"
-	"github.com/acepanel/panel/internal/http/request"
-	"github.com/acepanel/panel/pkg/config"
-	"github.com/acepanel/panel/pkg/docker"
-	"github.com/acepanel/panel/pkg/shell"
-	"github.com/acepanel/panel/pkg/ssh"
+	"github.com/acepanel/panel/v3/internal/biz"
+	"github.com/acepanel/panel/v3/internal/http/request"
+	"github.com/acepanel/panel/v3/pkg/config"
+	"github.com/acepanel/panel/v3/pkg/docker"
+	"github.com/acepanel/panel/v3/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/ssh"
 )
 
 type WsService struct {

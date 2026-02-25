@@ -3,8 +3,8 @@
 package biz
 
 import (
-	biz "github.com/acepanel/panel/internal/biz"
-	request "github.com/acepanel/panel/internal/http/request"
+	biz "github.com/acepanel/panel/v3/internal/biz"
+	request "github.com/acepanel/panel/v3/internal/http/request"
 	mock "github.com/stretchr/testify/mock"
 )
 

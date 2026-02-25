@@ -10,7 +10,7 @@ import (
 
 	"github.com/samber/lo"
 
-	"github.com/acepanel/panel/pkg/webserver/types"
+	"github.com/acepanel/panel/v3/pkg/webserver/types"
 )
 
 // parseDurationToSeconds 将时长字符串转换为秒数

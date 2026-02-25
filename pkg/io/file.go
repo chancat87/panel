@@ -8,7 +8,7 @@ import (
 
 	"resty.dev/v3"
 
-	"github.com/acepanel/panel/pkg/chattr"
+	"github.com/acepanel/panel/v3/pkg/chattr"
 )
 
 // Write 写入文件

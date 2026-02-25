@@ -7,8 +7,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/acepanel/panel/pkg/io"
-	"github.com/acepanel/panel/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/io"
+	"github.com/acepanel/panel/v3/pkg/shell"
 )
 
 // NTPServiceType 表示系统使用的 NTP 服务类型

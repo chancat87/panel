@@ -11,7 +11,7 @@ import (
 
 	"github.com/samber/lo"
 
-	"github.com/acepanel/panel/pkg/webserver/types"
+	"github.com/acepanel/panel/v3/pkg/webserver/types"
 )
 
 // proxyFilePattern 匹配代理配置文件名 (200-299)

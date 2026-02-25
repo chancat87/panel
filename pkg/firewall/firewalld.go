@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/acepanel/panel/pkg/shell"
-	"github.com/acepanel/panel/pkg/systemctl"
+	"github.com/acepanel/panel/v3/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/systemctl"
 )
 
 type firewalld struct {

@@ -1,4 +1,4 @@
-module github.com/acepanel/panel
+module github.com/acepanel/panel/v3
 
 go 1.26.0
 

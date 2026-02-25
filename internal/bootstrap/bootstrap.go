@@ -3,7 +3,7 @@ package bootstrap
 import (
 	"github.com/google/wire"
 
-	"github.com/acepanel/panel/pkg/websitestat"
+	"github.com/acepanel/panel/v3/pkg/websitestat"
 )
 
 // ProviderSet is bootstrap providers.

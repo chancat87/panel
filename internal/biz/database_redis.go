@@ -1,8 +1,8 @@
 package biz
 
 import (
-	"github.com/acepanel/panel/internal/http/request"
-	"github.com/acepanel/panel/pkg/db"
+	"github.com/acepanel/panel/v3/internal/http/request"
+	"github.com/acepanel/panel/v3/pkg/db"
 )
 
 type DatabaseRedisRepo interface {

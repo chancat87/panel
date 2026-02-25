@@ -3,7 +3,7 @@ package geoip
 import (
 	"log/slog"
 
-	"github.com/acepanel/panel/pkg/ipdb"
+	"github.com/acepanel/panel/v3/pkg/ipdb"
 )
 
 // GeoIP IP 地理位置解析

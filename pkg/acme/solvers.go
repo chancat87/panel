@@ -24,9 +24,9 @@ import (
 	"github.com/mholt/acmez/v3/acme"
 	"golang.org/x/net/publicsuffix"
 
-	pkgos "github.com/acepanel/panel/pkg/os"
-	"github.com/acepanel/panel/pkg/shell"
-	"github.com/acepanel/panel/pkg/systemctl"
+	pkgos "github.com/acepanel/panel/v3/pkg/os"
+	"github.com/acepanel/panel/v3/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/systemctl"
 )
 
 var panelSolverGlobal sync.Mutex

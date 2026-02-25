@@ -3,7 +3,7 @@ package route
 import (
 	"github.com/go-chi/chi/v5"
 
-	"github.com/acepanel/panel/internal/service"
+	"github.com/acepanel/panel/v3/internal/service"
 )
 
 type Ws struct {

@@ -11,7 +11,7 @@ import (
 
 	"github.com/samber/lo"
 
-	"github.com/acepanel/panel/pkg/webserver/types"
+	"github.com/acepanel/panel/v3/pkg/webserver/types"
 )
 
 // upstreamFilePattern 匹配 upstream 配置文件名 (100-XXX-name.conf)

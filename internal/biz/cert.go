@@ -6,9 +6,9 @@ import (
 
 	mholtacme "github.com/mholt/acmez/v3/acme"
 
-	"github.com/acepanel/panel/internal/http/request"
-	"github.com/acepanel/panel/pkg/acme"
-	"github.com/acepanel/panel/pkg/types"
+	"github.com/acepanel/panel/v3/internal/http/request"
+	"github.com/acepanel/panel/v3/pkg/acme"
+	"github.com/acepanel/panel/v3/pkg/types"
 )
 
 type Cert struct {

@@ -20,10 +20,10 @@ import (
 	"github.com/pquerna/otp/totp"
 	"github.com/spf13/cast"
 
-	"github.com/acepanel/panel/internal/biz"
-	"github.com/acepanel/panel/internal/http/request"
-	"github.com/acepanel/panel/pkg/config"
-	"github.com/acepanel/panel/pkg/rsacrypto"
+	"github.com/acepanel/panel/v3/internal/biz"
+	"github.com/acepanel/panel/v3/internal/http/request"
+	"github.com/acepanel/panel/v3/pkg/config"
+	"github.com/acepanel/panel/v3/pkg/rsacrypto"
 )
 
 // 登录失败次数阈值，超过此次数需要验证码

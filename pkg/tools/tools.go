@@ -22,8 +22,8 @@ import (
 	"github.com/shirou/gopsutil/v4/process"
 	"resty.dev/v3"
 
-	"github.com/acepanel/panel/pkg/shell"
-	"github.com/acepanel/panel/pkg/types"
+	"github.com/acepanel/panel/v3/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/types"
 )
 
 // CurrentInfo 获取监控数据

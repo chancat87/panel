@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/acepanel/panel/internal/biz"
+	"github.com/acepanel/panel/v3/internal/biz"
 )
 
 type scanEventRepo struct {

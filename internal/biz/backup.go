@@ -3,7 +3,7 @@ package biz
 import (
 	"context"
 
-	"github.com/acepanel/panel/pkg/types"
+	"github.com/acepanel/panel/v3/pkg/types"
 )
 
 type BackupType string

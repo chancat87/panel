@@ -3,7 +3,7 @@ package request
 import (
 	"net/http"
 
-	"github.com/acepanel/panel/pkg/webserver/types"
+	"github.com/acepanel/panel/v3/pkg/webserver/types"
 )
 
 type WebsiteDefaultConfig struct {

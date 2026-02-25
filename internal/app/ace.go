@@ -16,9 +16,9 @@ import (
 	"github.com/gookit/validate"
 	"github.com/robfig/cron/v3"
 
-	"github.com/acepanel/panel/pkg/config"
-	"github.com/acepanel/panel/pkg/tlscert"
-	"github.com/acepanel/panel/pkg/types"
+	"github.com/acepanel/panel/v3/pkg/config"
+	"github.com/acepanel/panel/v3/pkg/tlscert"
+	"github.com/acepanel/panel/v3/pkg/types"
 )
 
 type Ace struct {

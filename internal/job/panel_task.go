@@ -14,11 +14,11 @@ import (
 	"github.com/libtnb/utils/collect"
 	"gorm.io/gorm"
 
-	"github.com/acepanel/panel/internal/app"
-	"github.com/acepanel/panel/internal/biz"
-	"github.com/acepanel/panel/pkg/api"
-	"github.com/acepanel/panel/pkg/config"
-	"github.com/acepanel/panel/pkg/io"
+	"github.com/acepanel/panel/v3/internal/app"
+	"github.com/acepanel/panel/v3/internal/biz"
+	"github.com/acepanel/panel/v3/pkg/api"
+	"github.com/acepanel/panel/v3/pkg/config"
+	"github.com/acepanel/panel/v3/pkg/io"
 )
 
 // PanelTask 面板每日任务

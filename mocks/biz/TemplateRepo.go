@@ -3,9 +3,9 @@
 package biz
 
 import (
-	api "github.com/acepanel/panel/pkg/api"
+	api "github.com/acepanel/panel/v3/pkg/api"
 
-	types "github.com/acepanel/panel/pkg/types"
+	types "github.com/acepanel/panel/v3/pkg/types"
 	mock "github.com/stretchr/testify/mock"
 )
 

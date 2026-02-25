@@ -10,7 +10,7 @@ import (
 	"github.com/samber/lo"
 	"github.com/tufanbarisyildirim/gonginx/config"
 
-	"github.com/acepanel/panel/pkg/webserver/types"
+	"github.com/acepanel/panel/v3/pkg/webserver/types"
 )
 
 // StaticVhost 纯静态虚拟主机

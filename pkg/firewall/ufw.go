@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cast"
 
-	"github.com/acepanel/panel/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/shell"
 )
 
 type ufw struct {

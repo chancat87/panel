@@ -5,10 +5,10 @@ package biz
 import (
 	context "context"
 
-	biz "github.com/acepanel/panel/internal/biz"
-	request "github.com/acepanel/panel/internal/http/request"
-	acme "github.com/acepanel/panel/pkg/acme"
-	types "github.com/acepanel/panel/pkg/types"
+	biz "github.com/acepanel/panel/v3/internal/biz"
+	request "github.com/acepanel/panel/v3/internal/http/request"
+	acme "github.com/acepanel/panel/v3/pkg/acme"
+	types "github.com/acepanel/panel/v3/pkg/types"
 	v3acme "github.com/mholt/acmez/v3/acme"
 	mock "github.com/stretchr/testify/mock"
 )

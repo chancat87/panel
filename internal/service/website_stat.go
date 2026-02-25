@@ -11,9 +11,9 @@ import (
 	"github.com/libtnb/chix"
 	"github.com/samber/lo"
 
-	"github.com/acepanel/panel/internal/biz"
-	"github.com/acepanel/panel/internal/http/request"
-	"github.com/acepanel/panel/pkg/websitestat"
+	"github.com/acepanel/panel/v3/internal/biz"
+	"github.com/acepanel/panel/v3/internal/http/request"
+	"github.com/acepanel/panel/v3/pkg/websitestat"
 )
 
 type WebsiteStatService struct {

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/acepanel/panel/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/shell"
 )
 
 // Remove 删除文件/目录

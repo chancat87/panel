@@ -13,11 +13,11 @@ import (
 	"github.com/andybalholm/brotli"
 	"github.com/go-chi/chi/v5"
 
-	"github.com/acepanel/panel/internal/http/middleware"
-	"github.com/acepanel/panel/internal/service"
-	"github.com/acepanel/panel/pkg/apploader"
-	"github.com/acepanel/panel/pkg/config"
-	"github.com/acepanel/panel/pkg/embed"
+	"github.com/acepanel/panel/v3/internal/http/middleware"
+	"github.com/acepanel/panel/v3/internal/service"
+	"github.com/acepanel/panel/v3/pkg/apploader"
+	"github.com/acepanel/panel/v3/pkg/config"
+	"github.com/acepanel/panel/v3/pkg/embed"
 )
 
 type Http struct {

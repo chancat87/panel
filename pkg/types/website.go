@@ -1,6 +1,6 @@
 package types
 
-import "github.com/acepanel/panel/pkg/webserver/types"
+import "github.com/acepanel/panel/v3/pkg/webserver/types"
 
 // WebsiteListen 网站监听配置
 type WebsiteListen struct {

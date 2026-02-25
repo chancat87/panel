@@ -5,9 +5,9 @@ package biz
 import (
 	context "context"
 
-	biz "github.com/acepanel/panel/internal/biz"
-	request "github.com/acepanel/panel/internal/http/request"
-	types "github.com/acepanel/panel/pkg/types"
+	biz "github.com/acepanel/panel/v3/internal/biz"
+	request "github.com/acepanel/panel/v3/internal/http/request"
+	types "github.com/acepanel/panel/v3/pkg/types"
 	mock "github.com/stretchr/testify/mock"
 )
 

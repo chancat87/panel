@@ -5,8 +5,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/acepanel/panel/internal/taskqueue"
-	"github.com/acepanel/panel/pkg/types"
+	"github.com/acepanel/panel/v3/internal/taskqueue"
+	"github.com/acepanel/panel/v3/pkg/types"
 )
 
 // NewRunner 创建任务运行器

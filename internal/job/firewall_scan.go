@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/acepanel/panel/internal/app"
-	"github.com/acepanel/panel/internal/biz"
-	"github.com/acepanel/panel/pkg/firewall/scan"
-	"github.com/acepanel/panel/pkg/geoip"
+	"github.com/acepanel/panel/v3/internal/app"
+	"github.com/acepanel/panel/v3/internal/biz"
+	"github.com/acepanel/panel/v3/pkg/firewall/scan"
+	"github.com/acepanel/panel/v3/pkg/geoip"
 )
 
 // FirewallScan 防火墙扫描感知任务

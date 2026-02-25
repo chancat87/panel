@@ -8,7 +8,7 @@ import (
 	"github.com/shirou/gopsutil/v4/process"
 	"github.com/spf13/cast"
 
-	"github.com/acepanel/panel/pkg/shell"
+	"github.com/acepanel/panel/v3/pkg/shell"
 )
 
 // ServiceInfo 服务详细信息
