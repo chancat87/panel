@@ -12,7 +12,7 @@ const (
 	BackupTypePath     BackupType = "path"
 	BackupTypeWebsite  BackupType = "website"
 	BackupTypeMySQL    BackupType = "mysql"
-	BackupTypePostgres BackupType = "postgres"
+	BackupTypePostgres BackupType = "postgresql"
 	BackupTypeRedis    BackupType = "redis"
 	BackupTypePanel    BackupType = "panel"
 )
