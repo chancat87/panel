@@ -493,7 +493,7 @@ func (r *backupRepo) createWebsite(name string, storage storage.Storage, target 
 	}
 	defer func(file *os.File) { _ = file.Close() }(file)
 
-	if err = storage.Put(filepath.Join("website", name), file); err != nil {
+	if err = storage.Put(filepath.Join(string(biz.BackupTypeWebsite), name), file); err != nil {
 		return err
 	}
 
@@ -551,7 +551,7 @@ func (r *backupRepo) createMySQL(name string, storage storage.Storage, target st
 	}
 	defer func(file *os.File) { _ = file.Close() }(file)
 
-	if err = storage.Put(filepath.Join("mysql", name), file); err != nil {
+	if err = storage.Put(filepath.Join(string(biz.BackupTypeMySQL), name), file); err != nil {
 		return err
 	}
 
@@ -609,7 +609,7 @@ func (r *backupRepo) createPostgres(name string, storage storage.Storage, target
 	}
 	defer func(file *os.File) { _ = file.Close() }(file)
 
-	if err = storage.Put(filepath.Join("postgres", name), file); err != nil {
+	if err = storage.Put(filepath.Join(string(biz.BackupTypePostgres), name), file); err != nil {
 		return err
 	}
 
