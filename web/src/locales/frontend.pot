@@ -6195,20 +6195,20 @@ msgid "Are you sure you want to delete the selected rules?"
 msgstr ""
 
 #: src/views/firewall/IndexView.vue:21
-#: src/views/firewall/SettingView.vue:78
-msgid "Scan Awareness"
-msgstr ""
-
-#: src/views/firewall/IndexView.vue:22
 msgid "Port Rules"
 msgstr ""
 
-#: src/views/firewall/IndexView.vue:23
+#: src/views/firewall/IndexView.vue:22
 msgid "IP Rules"
 msgstr ""
 
-#: src/views/firewall/IndexView.vue:24
+#: src/views/firewall/IndexView.vue:23
 msgid "Port Forwarding"
+msgstr ""
+
+#: src/views/firewall/IndexView.vue:24
+#: src/views/firewall/SettingView.vue:78
+msgid "Scan Awareness"
 msgstr ""
 
 #: src/views/firewall/IpRuleView.vue:74

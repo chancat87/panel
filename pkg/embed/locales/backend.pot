@@ -244,11 +244,11 @@ msgstr ""
 msgid "CloudFlare"
 msgstr ""
 
-#: internal/apps/redis/app.go:88
+#: internal/apps/redis/app.go:91
 msgid "Commands Per Second"
 msgstr ""
 
-#: internal/apps/redis/app.go:81
+#: internal/apps/redis/app.go:84
 msgid "Connected Clients"
 msgstr ""
 
@@ -662,11 +662,11 @@ msgstr ""
 msgid "Journal logs"
 msgstr ""
 
-#: internal/apps/redis/app.go:89
+#: internal/apps/redis/app.go:92
 msgid "Keyspace Hits"
 msgstr ""
 
-#: internal/apps/redis/app.go:90
+#: internal/apps/redis/app.go:93
 msgid "Keyspace Misses"
 msgstr ""
 
@@ -674,7 +674,7 @@ msgstr ""
 msgid "LDAP is a protocol for accessing directory services"
 msgstr ""
 
-#: internal/apps/redis/app.go:91
+#: internal/apps/redis/app.go:94
 msgid "Latest Fork Time (ms)"
 msgstr ""
 
@@ -736,7 +736,7 @@ msgstr ""
 msgid "Memory"
 msgstr ""
 
-#: internal/apps/redis/app.go:85
+#: internal/apps/redis/app.go:88
 msgid "Memory Fragmentation Ratio"
 msgstr ""
 
@@ -900,7 +900,7 @@ msgstr ""
 msgid "Peak Connections"
 msgstr ""
 
-#: internal/apps/redis/app.go:84
+#: internal/apps/redis/app.go:87
 msgid "Peak Memory Usage"
 msgstr ""
 
@@ -1161,7 +1161,7 @@ msgstr ""
 msgid "Sysvshm is a library for handling System V shared memory"
 msgstr ""
 
-#: internal/apps/redis/app.go:79
+#: internal/apps/redis/app.go:82
 msgid "TCP Port"
 msgstr ""
 
@@ -1205,11 +1205,11 @@ msgstr ""
 msgid "Total Accesses"
 msgstr ""
 
-#: internal/apps/redis/app.go:82
+#: internal/apps/redis/app.go:85
 msgid "Total Allocated Memory"
 msgstr ""
 
-#: internal/apps/redis/app.go:87
+#: internal/apps/redis/app.go:90
 msgid "Total Commands Processed"
 msgstr ""
 
@@ -1218,11 +1218,11 @@ msgstr ""
 msgid "Total Connections"
 msgstr ""
 
-#: internal/apps/redis/app.go:86
+#: internal/apps/redis/app.go:89
 msgid "Total Connections Received"
 msgstr ""
 
-#: internal/apps/redis/app.go:83
+#: internal/apps/redis/app.go:86
 msgid "Total Memory Usage"
 msgstr ""
 
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "Uptime"
 msgstr ""
 
-#: internal/apps/redis/app.go:80
+#: internal/apps/redis/app.go:83
 msgid "Uptime in Days"
 msgstr ""
 
@@ -1907,11 +1907,11 @@ msgstr ""
 msgid "failed to get project list: %v"
 msgstr ""
 
-#: internal/apps/redis/app.go:64
+#: internal/apps/redis/app.go:67
 msgid "failed to get redis info: %v"
 msgstr ""
 
-#: internal/apps/redis/app.go:41
+#: internal/apps/redis/app.go:44
 msgid "failed to get redis status: %v"
 msgstr ""
 
