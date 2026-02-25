@@ -10,6 +10,7 @@ import (
 	"github.com/leonelquinteros/gotext"
 
 	"github.com/acepanel/panel/v3/internal/app"
+	"github.com/acepanel/panel/v3/internal/biz"
 	"github.com/acepanel/panel/v3/internal/service"
 	"github.com/acepanel/panel/v3/pkg/io"
 	"github.com/acepanel/panel/v3/pkg/shell"
@@ -18,12 +19,14 @@ import (
 )
 
 type App struct {
-	t *gotext.Locale
+	t                  *gotext.Locale
+	databaseServerRepo biz.DatabaseServerRepo
 }
 
-func NewApp(t *gotext.Locale) *App {
+func NewApp(t *gotext.Locale, databaseServer biz.DatabaseServerRepo) *App {
 	return &App{
-		t: t,
+		t:                  t,
+		databaseServerRepo: databaseServer,
 	}
 }
 
@@ -53,7 +56,7 @@ func (s *App) Load(w http.ResponseWriter, r *http.Request) {
 		service.Error(w, http.StatusInternalServerError, "%v", err)
 		return
 	}
-	re := regexp.MustCompile(`^requirepass\s+(.+)`)
+	re := regexp.MustCompile(`(?m)^requirepass\s+(.+)`)
 	matches := re.FindStringSubmatch(config)
 	if len(matches) == 2 {
 		withPassword = " -a " + matches[1]
@@ -183,6 +186,9 @@ func (s *App) UpdateConfigTune(w http.ResponseWriter, r *http.Request) {
 		service.Error(w, http.StatusInternalServerError, "%v", err)
 		return
 	}
+
+	// 同步密码到数据库服务器记录
+	_ = s.databaseServerRepo.UpdatePassword("local_redis", req.Requirepass)
 
 	service.Success(w, nil)
 }

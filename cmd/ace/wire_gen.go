@@ -170,7 +170,7 @@ func initAce() (*app.Ace, error) {
 	podmanApp := podman.NewApp()
 	postgresqlApp := postgresql.NewApp(locale, settingRepo, databaseServerRepo)
 	pureftpdApp := pureftpd.NewApp(locale)
-	redisApp := redis.NewApp(locale)
+	redisApp := redis.NewApp(locale, databaseServerRepo)
 	rsyncApp := rsync.NewApp(locale)
 	s3fsApp := s3fs.NewApp(locale)
 	supervisorApp := supervisor.NewApp(locale)
