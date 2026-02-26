@@ -84,7 +84,7 @@ const handleSaveScanSetting = () => {
 </script>
 
 <template>
-  <n-form :model="model" label-placement="left" label-width="auto">
+  <n-form :model="model" label-placement="left" label-width="160">
     <n-form-item path="firewall" :label="$gettext('System Firewall')">
       <n-switch v-model:value="model.firewallStatus" @update:value="handleFirewallStatus" />
     </n-form-item>
