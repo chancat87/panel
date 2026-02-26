@@ -356,7 +356,7 @@ msgstr "Select File"
 #: src/views/container/NetworkView.vue:46 src/views/container/VolumeView.vue:27
 #: src/views/database/CreateServerModal.vue:95
 #: src/views/database/ServerList.vue:52
-#: src/views/database/UpdateServerModal.vue:62 src/views/file/ListView.vue:1346
+#: src/views/database/UpdateServerModal.vue:64 src/views/file/ListView.vue:1346
 #: src/views/file/PropertyModal.vue:27 src/views/file/ToolBar.vue:149
 #: src/views/home/IndexView.vue:658 src/views/home/IndexView.vue:759
 #: src/views/project/ListView.vue:36 src/views/ssh/CreateModal.vue:59
@@ -477,7 +477,7 @@ msgstr "Root Directory"
 #: src/views/database/CreateUserModal.vue:152
 #: src/views/database/RedisDataView.vue:331
 #: src/views/database/RedisKeyModal.vue:141
-#: src/views/database/UpdateServerModal.vue:119
+#: src/views/database/UpdateServerModal.vue:121
 #: src/views/database/UpdateUserModal.vue:86 src/views/file/ToolBar.vue:253
 #: src/views/firewall/CreateForwardModal.vue:93
 #: src/views/firewall/CreateIpModal.vue:124
@@ -844,7 +844,7 @@ msgstr ""
 #: src/views/environment/PhpConfigTuneView.vue:557
 #: src/views/environment/PHPView.vue:250 src/views/environment/PHPView.vue:268
 #: src/views/environment/PythonView.vue:97 src/views/file/EditModal.vue:40
-#: src/views/firewall/SettingView.vue:95 src/views/project/EditModal.vue:582
+#: src/views/firewall/SettingView.vue:135 src/views/project/EditModal.vue:582
 #: src/views/setting/IndexView.vue:171 src/views/task/CreateModal.vue:478
 #: src/views/task/CronView.vue:346 src/views/toolbox/SshView.vue:239
 #: src/views/toolbox/SystemView.vue:190 src/views/toolbox/SystemView.vue:214
@@ -2202,6 +2202,7 @@ msgid "Unbanned successfully"
 msgstr "Unbanned successfully"
 
 #: src/views/apps/fail2ban/IndexView.vue:243
+#: src/views/firewall/SettingView.vue:128
 msgid "IP Whitelist"
 msgstr "IP Whitelist"
 
@@ -2652,7 +2653,7 @@ msgstr ""
 #: src/views/database/DatabaseList.vue:113
 #: src/views/database/RedisDataView.vue:209
 #: src/views/database/ServerList.vue:271
-#: src/views/database/UpdateServerModal.vue:25
+#: src/views/database/UpdateServerModal.vue:26
 #: src/views/database/UpdateUserModal.vue:22
 #: src/views/database/UserList.vue:201 src/views/file/PermissionModal.vue:57
 #: src/views/setting/SettingUser.vue:162 src/views/setting/SettingUser.vue:168
@@ -3347,7 +3348,7 @@ msgstr ""
 #: src/views/database/CreateServerModal.vue:126
 #: src/views/database/CreateUserModal.vue:99
 #: src/views/database/ServerList.vue:59
-#: src/views/database/UpdateServerModal.vue:93
+#: src/views/database/UpdateServerModal.vue:95
 #: src/views/database/UserList.vue:21 src/views/login/IndexView.vue:175
 #: src/views/setting/CreateModal.vue:47 src/views/setting/SettingUser.vue:19
 #: src/views/ssh/CreateModal.vue:85 src/views/ssh/UpdateModal.vue:91
@@ -3409,7 +3410,7 @@ msgstr "Enter username"
 #: src/views/database/CreateServerModal.vue:134
 #: src/views/database/CreateUserModal.vue:107
 #: src/views/database/ServerList.vue:68
-#: src/views/database/UpdateServerModal.vue:101
+#: src/views/database/UpdateServerModal.vue:103
 #: src/views/database/UpdateUserModal.vue:62 src/views/database/UserList.vue:31
 #: src/views/login/IndexView.vue:184 src/views/setting/CreateModal.vue:54
 #: src/views/setting/PasswordModal.vue:41 src/views/ssh/CreateModal.vue:79
@@ -3575,7 +3576,7 @@ msgstr ""
 #: src/views/database/CreateServerModal.vue:105
 #: src/views/database/CreateUserModal.vue:121
 #: src/views/database/ServerList.vue:99
-#: src/views/database/UpdateServerModal.vue:72
+#: src/views/database/UpdateServerModal.vue:74
 #: src/views/database/UserList.vue:62 src/views/ssh/CreateModal.vue:64
 #: src/views/ssh/UpdateModal.vue:70 src/views/toolbox/SystemView.vue:219
 msgid "Host"
@@ -3586,7 +3587,7 @@ msgstr "Host"
 #: src/views/database/CreateServerModal.vue:143
 #: src/views/database/CreateUserModal.vue:143
 #: src/views/database/DatabaseList.vue:38 src/views/database/ServerList.vue:109
-#: src/views/database/UpdateServerModal.vue:110
+#: src/views/database/UpdateServerModal.vue:112
 #: src/views/database/UpdateUserModal.vue:77 src/views/database/UserList.vue:95
 msgid "Comment"
 msgstr "Comment"
@@ -3956,7 +3957,7 @@ msgstr "Container Name"
 
 #: src/views/backup/StorageView.vue:296 src/views/backup/StorageView.vue:444
 #: src/views/database/CreateServerModal.vue:116
-#: src/views/database/UpdateServerModal.vue:83
+#: src/views/database/UpdateServerModal.vue:85
 #: src/views/firewall/ForwardView.vue:31 src/views/firewall/RuleView.vue:65
 #: src/views/firewall/ScanView.vue:291 src/views/firewall/ScanView.vue:307
 #: src/views/firewall/ScanView.vue:371 src/views/log/SSHLog.vue:81
@@ -5056,32 +5057,32 @@ msgid "Select type"
 msgstr "Select key type"
 
 #: src/views/database/CreateServerModal.vue:100
-#: src/views/database/UpdateServerModal.vue:67
+#: src/views/database/UpdateServerModal.vue:69
 msgid "Enter database server name"
 msgstr "Enter database server name"
 
 #: src/views/database/CreateServerModal.vue:110
-#: src/views/database/UpdateServerModal.vue:77
+#: src/views/database/UpdateServerModal.vue:79
 msgid "Enter database server host"
 msgstr "Enter database server host"
 
 #: src/views/database/CreateServerModal.vue:121
-#: src/views/database/UpdateServerModal.vue:88
+#: src/views/database/UpdateServerModal.vue:90
 msgid "Enter database server port"
 msgstr "Enter database server port"
 
 #: src/views/database/CreateServerModal.vue:131
-#: src/views/database/UpdateServerModal.vue:98
+#: src/views/database/UpdateServerModal.vue:100
 msgid "Enter database server username"
 msgstr "Enter database server username"
 
 #: src/views/database/CreateServerModal.vue:140
-#: src/views/database/UpdateServerModal.vue:107
+#: src/views/database/UpdateServerModal.vue:109
 msgid "Enter database server password"
 msgstr "Enter database server password"
 
 #: src/views/database/CreateServerModal.vue:148
-#: src/views/database/UpdateServerModal.vue:115
+#: src/views/database/UpdateServerModal.vue:117
 msgid "Enter database server comment"
 msgstr "Enter database server comment"
 
@@ -5115,6 +5116,7 @@ msgid "Are you sure you want to delete this database?"
 msgstr "Are you sure you want to delete this database?"
 
 #: src/views/database/RedisDataView.vue:103
+#: src/views/firewall/SettingView.vue:124
 #, fuzzy
 msgid "Permanent"
 msgstr "HTTP Redirect"
@@ -5234,7 +5236,7 @@ msgstr ""
 msgid "Are you sure you want to delete the server?"
 msgstr "Are you sure you want to delete the server?"
 
-#: src/views/database/UpdateServerModal.vue:54
+#: src/views/database/UpdateServerModal.vue:56
 msgid "Modify Server"
 msgstr "Modify Server"
 
@@ -6151,7 +6153,7 @@ msgstr "IP Rules"
 msgid "Port Forwarding"
 msgstr "Port Forwarding"
 
-#: src/views/firewall/IndexView.vue:24 src/views/firewall/SettingView.vue:78
+#: src/views/firewall/IndexView.vue:24 src/views/firewall/SettingView.vue:95
 msgid "Scan Awareness"
 msgstr ""
 
@@ -6289,32 +6291,51 @@ msgid "Top 10 Scanned Ports"
 msgstr ""
 
 #: src/views/firewall/SettingView.vue:21 src/views/firewall/SettingView.vue:27
-#: src/views/firewall/SettingView.vue:61
+#: src/views/firewall/SettingView.vue:78
 msgid "Settings saved successfully"
 msgstr "Settings saved successfully"
 
-#: src/views/firewall/SettingView.vue:71
+#: src/views/firewall/SettingView.vue:88
 msgid "System Firewall"
 msgstr "System Firewall"
 
-#: src/views/firewall/SettingView.vue:74
+#: src/views/firewall/SettingView.vue:91
 msgid "Allow Ping"
 msgstr "Allow Ping"
 
-#: src/views/firewall/SettingView.vue:81
+#: src/views/firewall/SettingView.vue:99
 #, fuzzy
 msgid "Retention Days"
 msgstr "Retention Count"
 
-#: src/views/firewall/SettingView.vue:84
+#: src/views/firewall/SettingView.vue:102
 #, fuzzy
 msgid "Network Interfaces"
 msgstr "Network Name"
 
-#: src/views/firewall/SettingView.vue:90
+#: src/views/firewall/SettingView.vue:108
 #, fuzzy
 msgid "Auto detect"
 msgstr "Auto Update"
+
+#: src/views/firewall/SettingView.vue:111
+#, fuzzy
+msgid "Auto Block"
+msgstr "Locked"
+
+#: src/views/firewall/SettingView.vue:115
+#, fuzzy
+msgid "Block Threshold"
+msgstr "Threads"
+
+#: src/views/firewall/SettingView.vue:118
+#, fuzzy
+msgid "Time Window (minutes)"
+msgstr "Cache time (minutes)"
+
+#: src/views/firewall/SettingView.vue:121
+msgid "Block Duration (hours)"
+msgstr ""
 
 #: src/views/home/IndexView.vue:113
 msgid "Order updated"
