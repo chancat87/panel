@@ -15,6 +15,7 @@ const (
 	SettingKeyChannel                  SettingKey = "channel"
 	SettingKeyMonitor                  SettingKey = "monitor"
 	SettingKeyMonitorDays              SettingKey = "monitor_days"
+	SettingKeyMonitorInterval          SettingKey = "monitor_interval"
 	SettingKeyBackupPath               SettingKey = "backup_path"
 	SettingKeyWebsitePath              SettingKey = "website_path"
 	SettingKeyProjectPath              SettingKey = "project_path"

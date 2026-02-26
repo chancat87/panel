@@ -17,6 +17,7 @@ type Monitoring struct {
 	db          *gorm.DB
 	log         *slog.Logger
 	settingRepo biz.SettingRepo
+	lastRun     time.Time
 }
 
 func NewMonitoring(db *gorm.DB, log *slog.Logger, setting biz.SettingRepo) *Monitoring {
@@ -36,6 +37,16 @@ func (r *Monitoring) Run() {
 	if err != nil || !cast.ToBool(monitor) {
 		return
 	}
+
+	// 根据采集间隔判断是否该采集
+	interval, _ := r.settingRepo.GetInt(biz.SettingKeyMonitorInterval, 1)
+	if interval < 1 {
+		interval = 1
+	}
+	if !r.lastRun.IsZero() && time.Since(r.lastRun) < time.Duration(interval)*time.Minute-30*time.Second {
+		return
+	}
+	r.lastRun = time.Now()
 
 	info := tools.CurrentInfo(nil, nil)
 	info.TopProcesses = tools.CollectTopProcesses()
