@@ -153,11 +153,11 @@ msgid "Yearly"
 msgstr ""
 
 #: src/components/common/CronSelector.vue:158
-#: src/views/monitor/IndexView.vue:773
-#: src/views/monitor/IndexView.vue:827
-#: src/views/monitor/IndexView.vue:879
-#: src/views/monitor/IndexView.vue:935
-#: src/views/monitor/IndexView.vue:1002
+#: src/views/monitor/IndexView.vue:781
+#: src/views/monitor/IndexView.vue:835
+#: src/views/monitor/IndexView.vue:887
+#: src/views/monitor/IndexView.vue:943
+#: src/views/monitor/IndexView.vue:1010
 #: src/views/project/CreateModal.vue:22
 #: src/views/project/CreateModal.vue:33
 #: src/views/project/CreateModal.vue:46
@@ -210,7 +210,7 @@ msgstr ""
 #: src/views/app/TemplateDeployModal.vue:341
 #: src/views/home/IndexView.vue:1028
 #: src/views/home/UpdateView.vue:30
-#: src/views/monitor/IndexView.vue:723
+#: src/views/monitor/IndexView.vue:731
 #: src/views/toolbox/DiskView.vue:407
 #: src/views/toolbox/DiskView.vue:409
 #: src/views/toolbox/DiskView.vue:432
@@ -397,6 +397,7 @@ msgstr ""
 #: src/views/home/IndexView.vue:658
 #: src/views/home/IndexView.vue:759
 #: src/views/project/ListView.vue:36
+#: src/views/setting/PasskeyModal.vue:23
 #: src/views/ssh/CreateModal.vue:59
 #: src/views/ssh/UpdateModal.vue:65
 #: src/views/toolbox/LogView.vue:216
@@ -1272,7 +1273,8 @@ msgstr ""
 #: src/views/firewall/RuleView.vue:314
 #: src/views/project/ListView.vue:199
 #: src/views/project/ListView.vue:307
-#: src/views/setting/SettingUser.vue:139
+#: src/views/setting/PasskeyModal.vue:70
+#: src/views/setting/SettingUser.vue:156
 #: src/views/setting/TokenModal.vue:93
 #: src/views/ssh/IndexView.vue:124
 #: src/views/task/CronView.vue:172
@@ -1287,7 +1289,7 @@ msgstr ""
 #: src/components/file-editor/FileTree.vue:482
 #: src/views/file/ListView.vue:345
 #: src/views/file/ListView.vue:1547
-#: src/views/monitor/IndexView.vue:600
+#: src/views/monitor/IndexView.vue:602
 #: src/views/toolbox/SshView.vue:301
 msgid "Download"
 msgstr ""
@@ -1335,7 +1337,8 @@ msgstr ""
 #: src/views/firewall/RuleView.vue:293
 #: src/views/project/ListView.vue:275
 #: src/views/project/ListView.vue:285
-#: src/views/setting/SettingUser.vue:174
+#: src/views/setting/PasskeyModal.vue:102
+#: src/views/setting/SettingUser.vue:191
 #: src/views/setting/TokenModal.vue:116
 #: src/views/task/CronView.vue:238
 #: src/views/task/CronView.vue:248
@@ -1423,7 +1426,7 @@ msgstr ""
 #: src/views/apps/pureftpd/IndexView.vue:69
 #: src/views/apps/pureftpd/IndexView.vue:271
 #: src/views/setting/PasswordModal.vue:33
-#: src/views/setting/SettingUser.vue:117
+#: src/views/setting/SettingUser.vue:134
 msgid "Change Password"
 msgstr ""
 
@@ -1573,7 +1576,7 @@ msgid "Frp Manager"
 msgstr ""
 
 #: src/router/routes/index.ts:18
-#: src/views/login/IndexView.vue:231
+#: src/views/login/IndexView.vue:303
 msgid "Login"
 msgstr ""
 
@@ -1638,7 +1641,8 @@ msgstr ""
 #: src/views/firewall/RuleView.vue:225
 #: src/views/firewall/ScanView.vue:254
 #: src/views/project/ListView.vue:116
-#: src/views/setting/SettingUser.vue:85
+#: src/views/setting/PasskeyModal.vue:48
+#: src/views/setting/SettingUser.vue:87
 #: src/views/setting/TokenModal.vue:54
 #: src/views/task/CronView.vue:108
 #: src/views/task/TaskView.vue:55
@@ -2434,8 +2438,8 @@ msgstr ""
 #: src/views/home/IndexView.vue:660
 #: src/views/home/IndexView.vue:761
 #: src/views/log/SSHLog.vue:71
-#: src/views/monitor/IndexView.vue:333
-#: src/views/monitor/IndexView.vue:345
+#: src/views/monitor/IndexView.vue:335
+#: src/views/monitor/IndexView.vue:347
 #: src/views/setting/IndexView.vue:151
 #: src/views/toolbox/ProcessView.vue:131
 #: src/views/toolbox/ProcessView.vue:391
@@ -2757,8 +2761,8 @@ msgstr ""
 #: src/views/database/UpdateUserModal.vue:22
 #: src/views/database/UserList.vue:201
 #: src/views/file/PermissionModal.vue:57
-#: src/views/setting/SettingUser.vue:162
-#: src/views/setting/SettingUser.vue:168
+#: src/views/setting/SettingUser.vue:179
+#: src/views/setting/SettingUser.vue:185
 #: src/views/task/CreateModal.vue:95
 #: src/views/task/CronView.vue:196
 #: src/views/task/CronView.vue:266
@@ -3279,10 +3283,10 @@ msgstr ""
 #: src/views/container/ContainerCreate.vue:428
 #: src/views/home/IndexView.vue:687
 #: src/views/home/IndexView.vue:760
-#: src/views/monitor/IndexView.vue:530
-#: src/views/monitor/IndexView.vue:537
-#: src/views/monitor/IndexView.vue:553
-#: src/views/monitor/IndexView.vue:851
+#: src/views/monitor/IndexView.vue:532
+#: src/views/monitor/IndexView.vue:539
+#: src/views/monitor/IndexView.vue:555
+#: src/views/monitor/IndexView.vue:859
 #: src/views/toolbox/BenchmarkView.vue:177
 #: src/views/toolbox/PanelView.vue:121
 #: src/views/toolbox/ProcessView.vue:155
@@ -3427,9 +3431,9 @@ msgstr ""
 #: src/views/database/ServerList.vue:59
 #: src/views/database/UpdateServerModal.vue:95
 #: src/views/database/UserList.vue:21
-#: src/views/login/IndexView.vue:175
+#: src/views/login/IndexView.vue:246
 #: src/views/setting/CreateModal.vue:47
-#: src/views/setting/SettingUser.vue:19
+#: src/views/setting/SettingUser.vue:21
 #: src/views/ssh/CreateModal.vue:85
 #: src/views/ssh/UpdateModal.vue:91
 #: src/views/website/EditModal.vue:1881
@@ -3499,7 +3503,7 @@ msgstr ""
 #: src/views/database/UpdateServerModal.vue:103
 #: src/views/database/UpdateUserModal.vue:62
 #: src/views/database/UserList.vue:31
-#: src/views/login/IndexView.vue:184
+#: src/views/login/IndexView.vue:255
 #: src/views/setting/CreateModal.vue:54
 #: src/views/setting/PasswordModal.vue:41
 #: src/views/ssh/CreateModal.vue:79
@@ -4126,7 +4130,7 @@ msgstr ""
 #: src/views/cert/AccountView.vue:246
 #: src/views/cert/CreateAccountModal.vue:103
 #: src/views/setting/CreateModal.vue:63
-#: src/views/setting/SettingUser.vue:36
+#: src/views/setting/SettingUser.vue:38
 msgid "Email"
 msgstr ""
 
@@ -4221,7 +4225,7 @@ msgstr ""
 #: src/views/cert/CertView.vue:109
 #: src/views/file/ToolBar.vue:180
 #: src/views/file/UploadModal.vue:465
-#: src/views/monitor/IndexView.vue:594
+#: src/views/monitor/IndexView.vue:596
 msgid "Upload"
 msgstr ""
 
@@ -4503,7 +4507,8 @@ msgstr ""
 #: src/views/container/ImageView.vue:82
 #: src/views/container/NetworkView.vue:101
 #: src/views/container/VolumeView.vue:55
-#: src/views/setting/SettingUser.vue:76
+#: src/views/setting/PasskeyModal.vue:30
+#: src/views/setting/SettingUser.vue:78
 #: src/views/setting/TokenModal.vue:36
 #: src/views/task/CronView.vue:89
 #: src/views/task/TaskView.vue:37
@@ -4614,7 +4619,7 @@ msgstr ""
 #: src/views/container/ContainerCreate.vue:211
 #: src/views/home/IndexView.vue:187
 #: src/views/home/IndexView.vue:954
-#: src/views/monitor/IndexView.vue:974
+#: src/views/monitor/IndexView.vue:982
 #: src/views/toolbox/IndexView.vue:27
 msgid "Network"
 msgstr ""
@@ -4781,8 +4786,8 @@ msgstr ""
 #: src/views/container/ContainerCreate.vue:480
 #: src/views/home/IndexView.vue:661
 #: src/views/home/IndexView.vue:762
-#: src/views/monitor/IndexView.vue:333
-#: src/views/monitor/IndexView.vue:345
+#: src/views/monitor/IndexView.vue:335
+#: src/views/monitor/IndexView.vue:347
 msgid "Command"
 msgstr ""
 
@@ -5939,7 +5944,7 @@ msgstr ""
 #: src/views/home/IndexView.vue:211
 #: src/views/home/IndexView.vue:227
 #: src/views/home/IndexView.vue:999
-#: src/views/monitor/IndexView.vue:637
+#: src/views/monitor/IndexView.vue:639
 msgid "Read"
 msgstr ""
 
@@ -5949,7 +5954,7 @@ msgstr ""
 #: src/views/home/IndexView.vue:211
 #: src/views/home/IndexView.vue:251
 #: src/views/home/IndexView.vue:1000
-#: src/views/monitor/IndexView.vue:646
+#: src/views/monitor/IndexView.vue:648
 msgid "Write"
 msgstr ""
 
@@ -6428,25 +6433,25 @@ msgstr ""
 
 #: src/views/home/IndexView.vue:233
 #: src/views/home/IndexView.vue:257
-#: src/views/monitor/IndexView.vue:431
-#: src/views/monitor/IndexView.vue:500
-#: src/views/monitor/IndexView.vue:562
+#: src/views/monitor/IndexView.vue:433
+#: src/views/monitor/IndexView.vue:502
+#: src/views/monitor/IndexView.vue:564
 msgid "Maximum"
 msgstr ""
 
 #: src/views/home/IndexView.vue:234
 #: src/views/home/IndexView.vue:258
-#: src/views/monitor/IndexView.vue:432
-#: src/views/monitor/IndexView.vue:501
-#: src/views/monitor/IndexView.vue:563
+#: src/views/monitor/IndexView.vue:434
+#: src/views/monitor/IndexView.vue:503
+#: src/views/monitor/IndexView.vue:565
 msgid "Minimum"
 msgstr ""
 
 #: src/views/home/IndexView.vue:238
 #: src/views/home/IndexView.vue:262
-#: src/views/monitor/IndexView.vue:436
-#: src/views/monitor/IndexView.vue:505
-#: src/views/monitor/IndexView.vue:567
+#: src/views/monitor/IndexView.vue:438
+#: src/views/monitor/IndexView.vue:507
+#: src/views/monitor/IndexView.vue:569
 msgid "Average"
 msgstr ""
 
@@ -6717,11 +6722,11 @@ msgstr ""
 #: src/views/log/DatabaseLog.vue:30
 #: src/views/log/HttpLog.vue:30
 #: src/views/log/OperationLog.vue:33
-#: src/views/monitor/IndexView.vue:757
-#: src/views/monitor/IndexView.vue:811
-#: src/views/monitor/IndexView.vue:863
-#: src/views/monitor/IndexView.vue:919
-#: src/views/monitor/IndexView.vue:986
+#: src/views/monitor/IndexView.vue:765
+#: src/views/monitor/IndexView.vue:819
+#: src/views/monitor/IndexView.vue:871
+#: src/views/monitor/IndexView.vue:927
+#: src/views/monitor/IndexView.vue:994
 #: src/views/website/StatsView.vue:138
 msgid "Today"
 msgstr ""
@@ -6839,128 +6844,149 @@ msgstr ""
 msgid "Auth Method"
 msgstr ""
 
-#: src/views/login/IndexView.vue:71
-msgid "Please enter username and password"
-msgstr ""
-
-#: src/views/login/IndexView.vue:76
-msgid "Please enter captcha code"
-msgstr ""
-
-#: src/views/login/IndexView.vue:85
-msgid "Failed to get encryption public key, please refresh the page and try again"
-msgstr ""
-
-#: src/views/login/IndexView.vue:99
+#: src/views/login/IndexView.vue:62
 msgid "Login successful!"
 msgstr ""
 
-#: src/views/login/IndexView.vue:195
+#: src/views/login/IndexView.vue:138
+msgid "Please enter username and password"
+msgstr ""
+
+#: src/views/login/IndexView.vue:143
+msgid "Please enter captcha code"
+msgstr ""
+
+#: src/views/login/IndexView.vue:152
+msgid "Failed to get encryption public key, please refresh the page and try again"
+msgstr ""
+
+#: src/views/login/IndexView.vue:232
+msgid "Authenticating with passkey..."
+msgstr ""
+
+#: src/views/login/IndexView.vue:240
+msgid "Passkey login failed, please use username and password."
+msgstr ""
+
+#: src/views/login/IndexView.vue:266
 msgid "2FA Code"
 msgstr ""
 
-#: src/views/login/IndexView.vue:205
+#: src/views/login/IndexView.vue:277
 msgid "Captcha Code"
 msgstr ""
 
-#: src/views/login/IndexView.vue:220
+#: src/views/login/IndexView.vue:292
 msgid "Safe Login"
 msgstr ""
 
-#: src/views/login/IndexView.vue:221
+#: src/views/login/IndexView.vue:293
 msgid "Remember Me"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:333
-#: src/views/monitor/IndexView.vue:345
+#: src/views/login/IndexView.vue:313
+msgid "Login with Passkey"
+msgstr ""
+
+#: src/views/monitor/IndexView.vue:335
+#: src/views/monitor/IndexView.vue:347
 #: src/views/toolbox/IndexView.vue:26
 #: src/views/toolbox/NetworkView.vue:75
 msgid "Process"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:345
+#: src/views/monitor/IndexView.vue:347
 msgid "Total Read"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:345
+#: src/views/monitor/IndexView.vue:347
 msgid "Total Write"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:425
+#: src/views/monitor/IndexView.vue:427
 msgid "1 minute"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:440
+#: src/views/monitor/IndexView.vue:442
 msgid "5 minutes"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:446
+#: src/views/monitor/IndexView.vue:448
 msgid "15 minutes"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:481
+#: src/views/monitor/IndexView.vue:483
 msgid "Usage %"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:491
+#: src/views/monitor/IndexView.vue:493
 #: src/views/toolbox/DiskView.vue:305
 msgid "Usage"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:543
+#: src/views/monitor/IndexView.vue:545
 msgid "Unit MB"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:693
-#: src/views/monitor/IndexView.vue:702
+#: src/views/monitor/IndexView.vue:695
+#: src/views/monitor/IndexView.vue:704
 msgid "Operation successful"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:713
+#: src/views/monitor/IndexView.vue:715
 msgid "Enable Monitoring"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:717
+#: src/views/monitor/IndexView.vue:719
 msgid "Save Days"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:719
+#: src/views/monitor/IndexView.vue:721
 msgid "days"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:731
+#: src/views/monitor/IndexView.vue:725
+msgid "Collection Interval"
+msgstr ""
+
+#: src/views/monitor/IndexView.vue:727
+#: src/views/setting/SettingSafe.vue:61
+msgid "minutes"
+msgstr ""
+
+#: src/views/monitor/IndexView.vue:739
 msgid "Clear Monitoring Records"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:734
+#: src/views/monitor/IndexView.vue:742
 #: src/views/website/EditModal.vue:2006
 msgid "Are you sure you want to clear?"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:745
+#: src/views/monitor/IndexView.vue:753
 msgid "Load"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:751
-#: src/views/monitor/IndexView.vue:805
-#: src/views/monitor/IndexView.vue:857
-#: src/views/monitor/IndexView.vue:913
-#: src/views/monitor/IndexView.vue:980
+#: src/views/monitor/IndexView.vue:759
+#: src/views/monitor/IndexView.vue:813
+#: src/views/monitor/IndexView.vue:865
+#: src/views/monitor/IndexView.vue:921
+#: src/views/monitor/IndexView.vue:988
 #: src/views/website/stats/OverviewTab.vue:259
 #: src/views/website/StatsView.vue:144
 msgid "Yesterday"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:763
-#: src/views/monitor/IndexView.vue:817
-#: src/views/monitor/IndexView.vue:869
-#: src/views/monitor/IndexView.vue:925
-#: src/views/monitor/IndexView.vue:992
+#: src/views/monitor/IndexView.vue:771
+#: src/views/monitor/IndexView.vue:825
+#: src/views/monitor/IndexView.vue:877
+#: src/views/monitor/IndexView.vue:933
+#: src/views/monitor/IndexView.vue:1000
 #: src/views/website/StatsView.vue:147
 msgid "Last 7 Days"
 msgstr ""
 
-#: src/views/monitor/IndexView.vue:907
+#: src/views/monitor/IndexView.vue:915
 msgid "Disk I/O"
 msgstr ""
 
@@ -7481,6 +7507,51 @@ msgstr ""
 msgid "Refresh Certificate"
 msgstr ""
 
+#: src/views/setting/PasskeyModal.vue:39
+msgid "Last Used"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:44
+msgid "Never"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:60
+msgid "Are you sure you want to delete this passkey?"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:110
+msgid "Please enter a name for the passkey"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:125
+msgid "Passkey registered successfully"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:135
+msgid "Registration was cancelled"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:137
+msgid "Passkey registration failed: %{msg}"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:158
+#: src/views/setting/SettingUser.vue:119
+msgid "Passkeys"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:168
+msgid "Passkeys are only available when using a bound domain with a trusted HTTPS certificate."
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:177
+msgid "Passkey name"
+msgstr ""
+
+#: src/views/setting/PasskeyModal.vue:187
+msgid "Register New Passkey"
+msgstr ""
+
 #: src/views/setting/SettingBase.vue:60
 msgid "Stable"
 msgstr ""
@@ -7584,10 +7655,6 @@ msgstr ""
 
 #: src/views/setting/SettingSafe.vue:55
 msgid "120"
-msgstr ""
-
-#: src/views/setting/SettingSafe.vue:61
-msgid "minutes"
 msgstr ""
 
 #: src/views/setting/SettingSafe.vue:70
@@ -7704,20 +7771,20 @@ msgstr ""
 msgid "Panel public IP is used to issue HTTPS certificates using ACME. Ensure that the entered IP address is accessible from the public network."
 msgstr ""
 
-#: src/views/setting/SettingUser.vue:53
+#: src/views/setting/SettingUser.vue:55
 msgid "2FA"
 msgstr ""
 
-#: src/views/setting/SettingUser.vue:67
+#: src/views/setting/SettingUser.vue:69
 msgid "Disabled successfully"
 msgstr ""
 
-#: src/views/setting/SettingUser.vue:102
+#: src/views/setting/SettingUser.vue:104
 #: src/views/setting/TokenModal.vue:212
 msgid "Access Tokens"
 msgstr ""
 
-#: src/views/setting/SettingUser.vue:128
+#: src/views/setting/SettingUser.vue:145
 msgid "Are you sure you want to delete this user?"
 msgstr ""
 
