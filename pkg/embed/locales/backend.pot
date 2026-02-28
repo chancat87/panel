@@ -893,7 +893,7 @@ msgstr ""
 msgid "Parameters cannot be empty"
 msgstr ""
 
-#: internal/service/user_passkey.go:178
+#: internal/service/user_passkey.go:179
 msgid "Passkey"
 msgstr ""
 
@@ -2333,8 +2333,8 @@ msgstr ""
 msgid "invalid response: %v"
 msgstr ""
 
-#: internal/service/user_passkey.go:145
-#: internal/service/user_passkey.go:243
+#: internal/service/user_passkey.go:146
+#: internal/service/user_passkey.go:245
 msgid "invalid session, please try again"
 msgstr ""
 
@@ -2472,11 +2472,11 @@ msgstr ""
 msgid "partition has no UUID"
 msgstr ""
 
-#: internal/service/user_passkey.go:273
+#: internal/service/user_passkey.go:275
 msgid "passkey login failed: %v"
 msgstr ""
 
-#: internal/service/user_passkey.go:171
+#: internal/service/user_passkey.go:172
 msgid "passkey registration failed: %v"
 msgstr ""
 
