@@ -33,7 +33,7 @@ type UserPasskeyService struct {
 }
 
 func NewUserPasskeyService(t *gotext.Locale, conf *config.Config, session *sessions.Manager, userPasskeyRepo biz.UserPasskeyRepo, userRepo biz.UserRepo) *UserPasskeyService {
-	// 注册 webauthn.SessionData 类型，否则 session 无法序列化
+	// 注册 webauthn.SessionData 类型，否则 gob 无法序列化
 	gob.Register(webauthn.SessionData{})
 	return &UserPasskeyService{
 		t:               t,
@@ -112,8 +112,9 @@ func (s *UserPasskeyService) BeginRegister(w http.ResponseWriter, r *http.Reques
 	creation, sessionData, err := wa.BeginRegistration(
 		wUser,
 		webauthn.WithAuthenticatorSelection(protocol.AuthenticatorSelection{
-			ResidentKey:      protocol.ResidentKeyRequirementRequired,
-			UserVerification: protocol.VerificationRequired,
+			ResidentKey:        protocol.ResidentKeyRequirementRequired,
+			RequireResidentKey: protocol.ResidentKeyRequired(),
+			UserVerification:   protocol.VerificationRequired,
 		}),
 		webauthn.WithExclusions(excludeCredentials),
 	)
@@ -186,14 +187,15 @@ func (s *UserPasskeyService) FinishRegister(w http.ResponseWriter, r *http.Reque
 	}
 
 	pk := &biz.UserPasskey{
-		UserID:       userID,
-		Name:         name,
-		CredentialID: credential.ID,
-		PublicKey:    credential.PublicKey,
-		AAGUID:       credential.Authenticator.AAGUID,
-		SignCount:    credential.Authenticator.SignCount,
-		Transports:   string(transports),
-		BackupState:  credential.Flags.BackupState,
+		UserID:         userID,
+		Name:           name,
+		CredentialID:   credential.ID,
+		PublicKey:      credential.PublicKey,
+		AAGUID:         credential.Authenticator.AAGUID,
+		SignCount:      credential.Authenticator.SignCount,
+		Transports:     string(transports),
+		BackupEligible: credential.Flags.BackupEligible,
+		BackupState:    credential.Flags.BackupState,
 	}
 
 	if err = s.userPasskeyRepo.Create(pk); err != nil {

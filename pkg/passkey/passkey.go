@@ -44,7 +44,8 @@ func (u *User) WebAuthnCredentials() []webauthn.Credential {
 			PublicKey: p.PublicKey,
 			Transport: transports,
 			Flags: webauthn.CredentialFlags{
-				BackupState: p.BackupState,
+				BackupEligible: p.BackupEligible,
+				BackupState:    p.BackupState,
 			},
 			Authenticator: webauthn.Authenticator{
 				AAGUID:    p.AAGUID,

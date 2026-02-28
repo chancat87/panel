@@ -95,4 +95,13 @@ func init() {
 			return tx.Migrator().DropTable(&biz.UserPasskey{})
 		},
 	})
+	Migrations = append(Migrations, &gormigrate.Migration{
+		ID: "20260228-update-user-passkeys",
+		Migrate: func(tx *gorm.DB) error {
+			return tx.AutoMigrate(&biz.UserPasskey{})
+		},
+		Rollback: func(tx *gorm.DB) error {
+			return tx.Migrator().DropTable(&biz.UserPasskey{})
+		},
+	})
 }

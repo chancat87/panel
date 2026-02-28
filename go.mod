@@ -40,7 +40,7 @@ require (
 	github.com/libtnb/cache v1.2.0
 	github.com/libtnb/chix v1.3.2
 	github.com/libtnb/gormstore v1.1.1
-	github.com/libtnb/sessions v1.2.2
+	github.com/libtnb/sessions v1.3.1
 	github.com/libtnb/sqlite v1.0.0
 	github.com/libtnb/utils v1.2.1
 	github.com/medama-io/go-useragent v1.2.3
